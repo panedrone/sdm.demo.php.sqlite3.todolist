@@ -30,6 +30,7 @@
                 color:#333333;
                 border: solid 1px #666;
                 border-collapse: collapse;
+                min-width: 300px;
             }
             .section th {
                 border: solid 1px #025B85;
@@ -68,7 +69,6 @@
                         <tr>
                             <th>Group</th>
                             <th>Tasks</th>
-                            <th></th>
                         </tr>
                         <?php
                         foreach ($groups as $g): // $o->... are visible for code assistance
@@ -79,11 +79,8 @@
                                         <?php echo $g->getGName(); ?>
                                     </a>
                                 </td>
-                                <td>
+                                <td align="center">
                                     <?php echo $g->getTasksCount() ?>
-                                </td>
-                                <td>
-                                    <a href="javascript:group_update(<?php echo $g->getGId(); ?>);">u</a>
                                 </td>
                             </tr>
                             <?php
@@ -105,8 +102,8 @@
                         ?>
                         <td>
                             <form action="group_update_action.php?g_id=<?php echo $g->getGId(); ?>" method="POST">
-                                <input type="text" name="g_name" id="g_name" value="<?php echo $group->getGName(); ?>"/>
-                                <input type="submit" value="^"/>
+                                <input  style="font-size: 14pt;" type="text" name="g_name" id="g_name" value="<?php echo $group->getGName(); ?>"/>
+                                <input type="submit" value="!"/>
                                 <a href="group_delete_action.php?g_id=<?php echo $g->getGId(); ?>"><input type="button" value="x"/></a>
                             </form> 
                             <table border cellspacing=1 cellpadding=5 class="section">
@@ -125,7 +122,7 @@
                                                 <?php echo $t->getTSubject(); ?>
                                             </a>
                                         </td>
-                                        <td><?php echo $t->getTPriority(); ?></td>
+                                        <td align="center"><?php echo $t->getTPriority(); ?></td>
                                     </tr>
                                     <?php
                                 endforeach;
@@ -149,7 +146,7 @@
                                     $priority = $task->getTPriority();
                                     $comments = $task->getTComments();
                                     ?>
-                                    <span style="font-size: 16pt;"><?php echo $dt . " " . $sbj; ?></span>
+                                    <span style="font-size: 14pt;"><?php echo $dt . " " . $sbj; ?></span>
                                     <form action="task_update_action.php?g_id=<?php echo $t->getGId(); ?>&t_id=<?php echo $t->getTId(); ?>" method="POST">
                                         <table>
                                             <tr>
@@ -158,7 +155,6 @@
                                                     <input type="text" name="t_date" id="t_date" value="<?php echo $dt; ?>" />
                                                 </td>
                                             </tr>
-
                                             <tr>
                                                 <td class="form-label">Subject</td>
                                                 <td>
@@ -180,7 +176,7 @@
                                         </table>
                                         <div align="right">
                                             <p style="text-align: center;">
-                                                <input type="submit" value="^"/>
+                                                <input type="submit" value="!"/>
                                                 <a href="task_delete_action.php?t_id=<?php echo $t->getTId(); ?>">
                                                     <input type="button" value="x"/>
                                                 </a>
