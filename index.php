@@ -52,21 +52,6 @@
             // http://www.w3schools.com/ajax/ajax_xmlhttprequest_create.asp
             // All modern browsers (IE7+, Firefox, Chrome, Safari, and Opera) have a built-in XMLHttpRequest object.
             //
-            function task_update(g_id, t_id) {
-                if (window.XMLHttpRequest) {
-                    xmlhttp = new XMLHttpRequest();
-                    xmlhttp.open("POST", "task_update_action.php?g_id=" + g_id + "&t_id=" + t_id, false); // false ==> sync
-                    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); // https://www.w3schools.com/xml/ajax_xmlhttprequest_send.asp        
-                    xmlhttp.send("t_date=" + document.getElementById("t_date").value +
-                            "&t_subject=" + document.getElementById("t_subject").value +
-                            "&t_priority=" + document.getElementById("t_priority").value +
-                            "&t_comments=" + document.getElementById("t_comments").value);
-                    // document.writeln(xmlhttp.responseText);
-                    location.reload();
-
-                    // document.writeln("HELLO");
-                }
-            }
             function group_update(g_id) {
                 if (window.XMLHttpRequest) {
                     xmlhttp = new XMLHttpRequest();
@@ -139,7 +124,7 @@
                     if ($group != false): // it may be false after removal
                         ?>
                         <td>
-                            <h2><?php echo $group->getGName();?> <a href="group_delete_action.php?g_id=<?php echo $g->getGId(); ?>">x</a></h2>
+                            <h2><?php echo $group->getGName(); ?> <a href="group_delete_action.php?g_id=<?php echo $g->getGId(); ?>">x</a></h2>
                             <table border cellspacing=1 cellpadding=5 class="section">
                                 <tr>
                                     <th>Date</th>
@@ -178,44 +163,44 @@
                                     $dt = $task->getTDate();
                                     $sbj = $task->getTSubject();
                                     ?>
-                                    <h2><?php echo $dt. " " . $sbj; ?> <a href="task_delete_action.php?t_id=<?php echo $t->getTId(); ?>">x</a></h2>
-                                    <table>
-                                        <tr>
-                                            <td class="form-label">Date</td>
-                                            <td>
-                                                <input type="text" name="t_date" id="t_date" value="<?php echo $task->getTDate(); ?>" />
-                                            </td>
-                                        </tr>
+                                    <h2><?php echo $dt . " " . $sbj; ?> <a href="task_delete_action.php?t_id=<?php echo $t->getTId(); ?>">x</a></h2>
+                                    <form action="task_update_action.php?g_id=<?php echo $t->getGId(); ?>&t_id=<?php echo $t->getTId(); ?>" method="POST">
+                                        <table>
+                                            <tr>
+                                                <td class="form-label">Date</td>
+                                                <td>
+                                                    <input type="text" name="t_date" id="t_date" value="<?php echo $task->getTDate(); ?>" />
+                                                </td>
+                                            </tr>
 
-                                        <tr>
-                                            <td class="form-label">Subject</td>
-                                            <td>
-                                                <input type="text" name="t_subject" id="t_subject" value="<?php echo $task->getTSubject(); ?>" />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="form-label">Priority</td>
-                                            <td>
-                                                <input type="text" name="t_priority" id="t_priority" value="<?php echo $task->getTPriority(); ?>" />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="form-label">Comments</td>
-                                            <td>
-                                                <textarea name="t_comments" id="t_comments" cols="40" rows="5">
-                                                    <?php echo $task->getTComments(); ?>
-                                                </textarea>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                    <input type="hidden" value="<?php echo $g_id; ?>" name="g_id" />
-                                    <input type="hidden" value="<?php echo $t_id; ?>" name="t_id" />
-                                    <div align="right">
-                                        <p style="text-align: center;">
-                                            <a href="javascript:task_update(<?php echo "$g_id, $t_id"; ?>);"><input type="button" value="Update"/></a>
-                                            <a href="index.php?g_id=<?php echo "$g_id"; ?>"><input type="button" value="Close"/></a>
-                                        </p>
-                                    </div>
+                                            <tr>
+                                                <td class="form-label">Subject</td>
+                                                <td>
+                                                    <input type="text" name="t_subject" id="t_subject" value="<?php echo $task->getTSubject(); ?>" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="form-label">Priority</td>
+                                                <td>
+                                                    <input type="text" name="t_priority" id="t_priority" value="<?php echo $task->getTPriority(); ?>" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="form-label">Comments</td>
+                                                <td>
+                                                    <textarea name="t_comments" id="t_comments" cols="40" rows="5">
+                                                        <?php echo $task->getTComments(); ?>
+                                                    </textarea>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <div align="right">
+                                            <p style="text-align: center;">
+                                                <input type="submit" value="Update"/>
+                                                <a href="index.php?g_id=<?php echo "$g_id"; ?>"><input type="button" value="Close"/></a>
+                                            </p>
+                                        </div>
+                                    </form>                                   
                                 </td>
                                 <?php
                             endif;
