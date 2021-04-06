@@ -197,7 +197,7 @@
                                         <div align="right">
                                             <p style="text-align: center;">
                                                 <input type="submit" value="Update"/>
-                                                <a href="index.php?g_id=<?php echo "$g_id"; ?>">
+                                                <a href="index.php?g_id=<?php echo $g_id; ?>">
                                                     <input type="button" value="Close"/>
                                                 </a>
                                             </p>
