@@ -101,7 +101,7 @@
                     if ($group != false): // it may be false after removal
                         ?>
                         <td>
-                            <form action="group_update_action.php?g_id=<?php echo $g->getGId(); ?>" method="POST">
+                            <form action="group_update_action.php?g_id=<?php echo $g_id; ?>" method="POST">
                                 <input  style="font-size: 14pt;" type="text" name="g_name" id="g_name" value="<?php echo $group->getGName(); ?>"/>
                                 <input type="submit" value="!"/>
                                 <a href="group_delete_action.php?g_id=<?php echo $g->getGId(); ?>"><input type="button" value="x"/></a>
