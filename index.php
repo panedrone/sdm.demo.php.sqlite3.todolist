@@ -44,25 +44,6 @@
             }
 
         </style>
-        <script>
-            //
-            // XMLHttpRequest + location.reload() is used in here
-            // just to avoid redirections to old url-s
-            // 
-            // http://www.w3schools.com/ajax/ajax_xmlhttprequest_create.asp
-            // All modern browsers (IE7+, Firefox, Chrome, Safari, and Opera) have a built-in XMLHttpRequest object.
-            //
-            function group_update(g_id) {
-                if (window.XMLHttpRequest) {
-                    xmlhttp = new XMLHttpRequest();
-                    xmlhttp.open("POST", "group_update_action.php?g_id=" + g_id, false); // false ==> sync
-                    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); // https://www.w3schools.com/xml/ajax_xmlhttprequest_send.asp
-                    xmlhttp.send("g_name=" + document.getElementById("g_name").value);
-                    // document.writeln(xmlhttp.responseText);
-                    location.reload();
-                }
-            }
-        </script>
     </head>
     <body>
         <table cellpadding=10 class="bg">
@@ -83,7 +64,6 @@
                 $groups = $group_dao->getGroups();
                 ?>
                 <td>
-                    <h2>TODO</h2>
                     <table border cellspacing=1 cellpadding=5 class="section">
                         <tr>
                             <th>Group</th>
@@ -124,7 +104,11 @@
                     if ($group != false): // it may be false after removal
                         ?>
                         <td>
-                            <h2><?php echo $group->getGName(); ?> <a href="group_delete_action.php?g_id=<?php echo $g->getGId(); ?>">x</a></h2>
+                            <form action="group_update_action.php?g_id=<?php echo $g->getGId(); ?>" method="POST">
+                                <input type="text" name="g_name" id="g_name" value="<?php echo $group->getGName(); ?>"/>
+                                <input type="submit" value="^"/>
+                                <a href="group_delete_action.php?g_id=<?php echo $g->getGId(); ?>"><input type="button" value="x"/></a>
+                            </form> 
                             <table border cellspacing=1 cellpadding=5 class="section">
                                 <tr>
                                     <th>Date</th>
@@ -165,7 +149,7 @@
                                     $priority = $task->getTPriority();
                                     $comments = $task->getTComments();
                                     ?>
-                                    <h2><?php echo $dt . " " . $sbj; ?> <a href="task_delete_action.php?t_id=<?php echo $t->getTId(); ?>">x</a></h2>
+                                    <span style="font-size: 16pt;"><?php echo $dt . " " . $sbj; ?></span>
                                     <form action="task_update_action.php?g_id=<?php echo $t->getGId(); ?>&t_id=<?php echo $t->getTId(); ?>" method="POST">
                                         <table>
                                             <tr>
@@ -196,9 +180,12 @@
                                         </table>
                                         <div align="right">
                                             <p style="text-align: center;">
-                                                <input type="submit" value="Update"/>
+                                                <input type="submit" value="^"/>
+                                                <a href="task_delete_action.php?t_id=<?php echo $t->getTId(); ?>">
+                                                    <input type="button" value="x"/>
+                                                </a>
                                                 <a href="index.php?g_id=<?php echo $g_id; ?>">
-                                                    <input type="button" value="Close"/>
+                                                    <input type="button" value="&lt;"/>
                                                 </a>
                                             </p>
                                         </div>

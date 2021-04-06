@@ -18,5 +18,6 @@ $t = $dao->readTask($t_id);
 $g_id = $t->getGId();
 $dao->deleteTask($t_id);
 $ds->close();
-MyUtils::redirect('index.php?g_id=' . $g_id);
+MyUtils::redirect("index.php?g_id=$g_id");
+
 
