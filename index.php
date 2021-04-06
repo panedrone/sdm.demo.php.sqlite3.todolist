@@ -28,14 +28,14 @@
                 font-family: arial,sans-serif;
                 font-size:12px;
                 color:#333333;
-                border: solid 1px #666;
+                border: solid 1px #777;
                 border-collapse: collapse;
                 min-width: 300px;
             }
             .section th {
                 border: solid 1px #025B85;
                 padding: 8px;
-                background-color: #028Bc5;
+                background-color: #6688cc;
                 color:#fff;
             }
             .section td {
