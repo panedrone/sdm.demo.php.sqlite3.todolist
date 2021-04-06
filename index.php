@@ -162,6 +162,8 @@
                                     <?php
                                     $dt = $task->getTDate();
                                     $sbj = $task->getTSubject();
+                                    $priority = $task->getTPriority();
+                                    $comments = $task->getTComments();
                                     ?>
                                     <h2><?php echo $dt . " " . $sbj; ?> <a href="task_delete_action.php?t_id=<?php echo $t->getTId(); ?>">x</a></h2>
                                     <form action="task_update_action.php?g_id=<?php echo $t->getGId(); ?>&t_id=<?php echo $t->getTId(); ?>" method="POST">
@@ -169,35 +171,35 @@
                                             <tr>
                                                 <td class="form-label">Date</td>
                                                 <td>
-                                                    <input type="text" name="t_date" id="t_date" value="<?php echo $task->getTDate(); ?>" />
+                                                    <input type="text" name="t_date" id="t_date" value="<?php echo $dt; ?>" />
                                                 </td>
                                             </tr>
 
                                             <tr>
                                                 <td class="form-label">Subject</td>
                                                 <td>
-                                                    <input type="text" name="t_subject" id="t_subject" value="<?php echo $task->getTSubject(); ?>" />
+                                                    <input type="text" name="t_subject" id="t_subject" value="<?php echo $sbj; ?>" />
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td class="form-label">Priority</td>
                                                 <td>
-                                                    <input type="text" name="t_priority" id="t_priority" value="<?php echo $task->getTPriority(); ?>" />
+                                                    <input type="text" name="t_priority" id="t_priority" value="<?php echo $priority; ?>" />
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td class="form-label">Comments</td>
                                                 <td>
-                                                    <textarea name="t_comments" id="t_comments" cols="40" rows="5">
-                                                        <?php echo $task->getTComments(); ?>
-                                                    </textarea>
+                                                    <textarea name="t_comments" id="t_comments" cols="40" rows="5"><?php echo $comments; ?></textarea>
                                                 </td>
                                             </tr>
                                         </table>
                                         <div align="right">
                                             <p style="text-align: center;">
                                                 <input type="submit" value="Update"/>
-                                                <a href="index.php?g_id=<?php echo "$g_id"; ?>"><input type="button" value="Close"/></a>
+                                                <a href="index.php?g_id=<?php echo "$g_id"; ?>">
+                                                    <input type="button" value="Close"/>
+                                                </a>
                                             </p>
                                         </div>
                                     </form>                                   
