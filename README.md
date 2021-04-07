@@ -2,3 +2,5 @@
 Demo of how to use [SQL DAL Maker](https://github.com/panedrone/sqldalmaker) + PHP/PDO
 
 ![demo-php.png](demo-php.png)
+
+![erd.png](erd.png)
