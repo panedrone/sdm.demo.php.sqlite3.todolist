@@ -1,6 +1,6 @@
-# sdm.demo.php.sqlite3.todolist
+# sdm_demo_php_todolist
 Demo of how to use [SQL DAL Maker](https://github.com/panedrone/sqldalmaker) + PHP/PDO
 
-![demo-php.png](demo-php.png)
+![demo-go.png](demo-go.png)
 
 ![erd.png](erd.png)
