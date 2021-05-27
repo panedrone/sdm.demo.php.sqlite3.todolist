@@ -2,49 +2,8 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>TODO-list</title>
-        <style>
-            body {
-                font-family: 'trebuchet MS', 'Lucida sans', Arial;
-                /*font-family: Arial, Helvetica, sans-serif;*/
-                /*font-family: Verdana, Geneva, sans-serif;*/
-            }
-
-            .bg {
-                background-color: #f0f0f0;
-                font-size: 12px;
-            }
-
-            .bg td {
-                vertical-align: top;
-                /*padding: 4pt;*/
-            }
-
-            .form-label {
-                padding: 3pt;
-            }
-
-            .section {
-                font-family: arial,sans-serif;
-                font-size:12px;
-                color:#333333;
-                border: solid 1px #777;
-                border-collapse: collapse;
-                min-width: 300px;
-            }
-            .section th {
-                border: solid 1px #025B85;
-                padding: 8px;
-                background-color: #6688cc;
-                color:#fff;
-            }
-            .section td {
-                padding: 8px;
-                border: solid 1px #666;
-                background-color: #ffffff;
-            }
-
-        </style>
+        <link rel="stylesheet" href="styles.css" type="text/css"/>
+        <title>TODO</title>
     </head>
     <body>
         <table cellpadding=10 class="bg">
@@ -88,8 +47,16 @@
                         ?>
                     </table>
                     <form action="group_create_action.php" method="POST">
-                        <input type="text" name="g_name" id="g_name" />
-                        <input type="submit" value="+"/>
+                        <table class="controls">
+                            <tr>
+                                <td>
+                                    <input type="text" name="g_name" id="g_name" />
+                                </td>
+                                <td width="1">
+                                    <input type="submit" value="+"/>
+                                </td>
+                            </tr>
+                        </table>
                     </form>
                 </td>
                 <?php
@@ -102,9 +69,24 @@
                         ?>
                         <td>
                             <form action="group_update_action.php?g_id=<?php echo $g_id; ?>" method="POST">
-                                <input  style="font-size: 14pt;" type="text" name="g_name" id="g_name" value="<?php echo $group->getGName(); ?>"/>
-                                <input type="submit" value="!"/>
-                                <a href="group_delete_action.php?g_id=<?php echo $g->getGId(); ?>"><input type="button" value="x"/></a>
+                                <table class="controls">
+                                    <tr>
+                                        <td>
+                                            <input  style="font-size: 14pt;" type="text" name="g_name" id="g_name" value="<?php echo $group->getGName(); ?>"/>
+                                        </td>
+                                        <td width="1">
+                                            <input type="submit" value="!"/>
+                                        </td>
+                                        <td width="1">
+                                            <a href="group_delete_action.php?g_id=<?php echo $g->getGId(); ?>"><input type="button" value="x"/></a>
+                                        </td>
+                                        <td width="1">
+                                            <a href="index.php">
+                                                <input type="button" value="&lt;"/>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </table>
                             </form> 
                             <table border cellspacing=1 cellpadding=5 class="section">
                                 <tr>
@@ -129,8 +111,16 @@
                                 ?>
                             </table>
                             <form action="task_create_action.php?g_id=<?php echo $g_id; ?>" method="POST">
-                                <input type="text" name="t_subject_1" id="t_subject_1" />
-                                <input type="submit" value="+" />
+                                <table class="controls">
+                                    <tr>
+                                        <td>
+                                            <input type="text" name="t_subject_1" id="t_subject_1" />
+                                        </td>
+                                        <td width="1">
+                                            <input type="submit" value="+" />
+                                        </td>
+                                    </tr>
+                                </table>
                             </form>
                         </td>
                         <?php
@@ -146,8 +136,27 @@
                                     $priority = $task->getTPriority();
                                     $comments = $task->getTComments();
                                     ?>
-                                    <span style="font-size: 14pt;"><?php echo $dt . " " . $sbj; ?></span>
                                     <form action="task_update_action.php?g_id=<?php echo $t->getGId(); ?>&t_id=<?php echo $t->getTId(); ?>" method="POST">
+                                        <table class="controls">
+                                            <tr>
+                                                <td>
+                                                    <div class="title"><?php echo $dt . " " . $sbj; ?></div>
+                                                </td>
+                                                <td width="1">
+                                                    <input type="submit" value="!"/>
+                                                </td>
+                                                <td width="1">
+                                                    <a href="task_delete_action.php?t_id=<?php echo $t->getTId(); ?>">
+                                                        <input type="button" value="x"/>
+                                                    </a>
+                                                </td>
+                                                <td width="1">
+                                                    <a href="index.php?g_id=<?php echo $g_id; ?>">
+                                                        <input type="button" value="&lt;"/>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </table>
                                         <table>
                                             <tr>
                                                 <td class="form-label">Date</td>
@@ -170,27 +179,22 @@
                                             <tr>
                                                 <td class="form-label">Comments</td>
                                                 <td>
-                                                    <textarea name="t_comments" id="t_comments" cols="40" rows="5"><?php echo $comments; ?></textarea>
+                                                    <textarea name="t_comments" id="t_comments" cols="40" rows="8"><?php echo $comments; ?></textarea>
                                                 </td>
                                             </tr>
                                         </table>
-                                        <div align="right">
-                                            <p style="text-align: center;">
-                                                <input type="submit" value="!"/>
-                                                <a href="task_delete_action.php?t_id=<?php echo $t->getTId(); ?>">
-                                                    <input type="button" value="x"/>
-                                                </a>
-                                                <a href="index.php?g_id=<?php echo $g_id; ?>">
-                                                    <input type="button" value="&lt;"/>
-                                                </a>
-                                            </p>
-                                        </div>
                                     </form>                                   
                                 </td>
                                 <?php
                             endif;
+                            ?>
+                            <?php
                         endif;
+                        ?>
+                        <?php
                     endif;
+                    ?>
+                    <?php
                 endif;
                 $ds->close();
                 ?>
