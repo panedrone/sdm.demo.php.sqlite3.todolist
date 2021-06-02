@@ -1,11 +1,8 @@
 <?php
 
-define("ABS_PATH", dirname(__FILE__));
-
 include_once './dal/DataStore.php';
-//include_once ABS_PATH . '/dal/DataStore.php';
-include_once ABS_PATH . '/dal/TasksDao.php';
-include_once ABS_PATH . '/dal/Task.php';
+include_once './dal/TasksDao.php';
+include_once './dal/Task.php';
 
 $ds = new DataStore();
 $ds->open();
@@ -19,12 +16,11 @@ if ($t_id) {
         $item = array(
             "t_id" => $t->getTId(),
             "t_subject" => $t->getTSubject(),
-            // "tasks_count" => html_entity_decode($description),
+            // "t_subject" => html_entity_decode($description),
             "t_date" => $t->getTDate(),
             "t_priority" => $t->getTPriority(),
             "t_comments" => $t->getTComments(),
         );
-        //http_response_code(200);
         echo json_encode($item);
     } else if ($method == "PUT") {
         $data = json_decode(file_get_contents("php://input"));
@@ -34,10 +30,8 @@ if ($t_id) {
         $t->setTPriority($data->t_priority);
         $t->setTComments($data->t_comments);
         $dao->updateTask($t);
-        //http_response_code(200);
     } else if ($method == "DELETE") {
         $dao->deleteTask($t_id);
-        //http_response_code(200);
     } else {
         http_response_code(400); // bad request
     }
@@ -73,5 +67,4 @@ foreach ($tasks as $t) {
     );
     array_push($arr, $item);
 }
-// http_response_code(200);
 echo json_encode($arr);
