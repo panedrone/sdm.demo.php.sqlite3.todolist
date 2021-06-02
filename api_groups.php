@@ -1,10 +1,8 @@
 <?php
 
-define("ABS_PATH", dirname(__FILE__));
-
-include_once ABS_PATH . '/dal/DataStore.php';
-include_once ABS_PATH . '/dal/GroupsDao.php';
-include_once ABS_PATH . '/dal/Group.php';
+include_once './dal/DataStore.php';
+include_once './dal/GroupsDao.php';
+include_once './dal/Group.php';
 
 $ds = new DataStore();
 $ds->open();
@@ -19,10 +17,9 @@ if ($g_id) {
         $item = array(
             "g_id" => $gr->getGId(),
             "g_name" => $gr->getGName(),
-            // "tasks_count" => html_entity_decode($description),
+            // "g_name" => html_entity_decode($description),
             "tasks_count" => $gr->getTasksCount(),
         );
-        // http_response_code(200);
         echo json_encode($item);
     } else if ($method == "PUT") {
         $data = json_decode(file_get_contents("php://input"));
@@ -33,7 +30,6 @@ if ($g_id) {
         //http_response_code(200);
     } else if ($method == "DELETE") {
         $dao->deleteGroup($g_id);
-        //http_response_code(200);
     } else {
         http_response_code(400); // bad request
     }
@@ -44,7 +40,6 @@ if ($method == "POST") {
     $gr = new dto\Group();
     $gr->setGName($data->g_name);
     $dao->createGroup($gr);
-    //http_response_code(200);
     return;
 }
 $groups = $dao->getGroups();
@@ -53,10 +48,9 @@ foreach ($groups as $gr) {
     $item = array(
         "g_id" => $gr->getGId(),
         "g_name" => $gr->getGName(),
-        // "tasks_count" => html_entity_decode($description),
+        // "g_name" => html_entity_decode($description),
         "tasks_count" => $gr->getTasksCount(),
     );
     array_push($arr, $item);
 }
-//http_response_code(200);
 echo json_encode($arr);
