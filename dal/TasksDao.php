@@ -42,12 +42,12 @@ class TasksDao {
         $row = $this->ds->queryRow($sql, array($tId));
         if ($row) {
             $obj = new Task();
-            $obj->setTId($row["t_id"]); // t(t_id) <- t(t_id)
-            $obj->setGId($row["g_id"]); // t(g_id) <- t(g_id)
-            $obj->setTPriority($row["t_priority"]); // t(t_priority) <- t(t_priority)
-            $obj->setTDate($row["t_date"]); // t(t_date) <- t(t_date)
-            $obj->setTSubject($row["t_subject"]); // t(t_subject) <- t(t_subject)
-            $obj->setTComments($row["t_comments"]); // t(t_comments) <- t(t_comments)
+            $obj->setTId($row["t_id"]); // t <- t
+            $obj->setGId($row["g_id"]); // t <- t
+            $obj->setTPriority($row["t_priority"]); // t <- t
+            $obj->setTDate($row["t_date"]); // t <- t
+            $obj->setTSubject($row["t_subject"]); // t <- t
+            $obj->setTComments($row["t_comments"]); // t <- t
             return $obj;
         }
         return FALSE;
@@ -83,12 +83,12 @@ class TasksDao {
         $res = array();
         $_map_cb = function ($row) use (&$res) {
             $obj = new Task();
-            $obj->setTId($row["t_id"]); // t(t_id) <- q(t_id)
-            $obj->setGId($row["g_id"]); // t(g_id) <- q(g_id)
-            $obj->setTPriority($row["t_priority"]); // t(t_priority) <- q(t_priority)
-            $obj->setTDate($row["t_date"]); // t(t_date) <- q(t_date)
-            $obj->setTSubject($row["t_subject"]); // t(t_subject) <- q(t_subject)
-            $obj->setTComments($row["t_comments"]); // t(t_comments) <- q(t_comments)
+            $obj->setTId($row["t_id"]); // t <- q
+            $obj->setGId($row["g_id"]); // t <- q
+            $obj->setTPriority($row["t_priority"]); // t <- q
+            $obj->setTDate($row["t_date"]); // t <- q
+            $obj->setTSubject($row["t_subject"]); // t <- q
+            $obj->setTComments($row["t_comments"]); // t <- q
             array_push($res, $obj);
         };
         $this->ds->queryRowList($sql, array($g_id), $_map_cb);

@@ -34,7 +34,7 @@ class GroupsDao {
 
     /**
      * C(R)UD: groups
-     * @param Object $gId
+     * @param Integer $gId
      * @return Group or FALSE on failure
      */
     public function readGroup($gId) {
@@ -42,8 +42,8 @@ class GroupsDao {
         $row = $this->ds->queryRow($sql, array($gId));
         if ($row) {
             $obj = new Group();
-            $obj->setGId($row["g_id"]); // q(g_id) <- t(g_id)
-            $obj->setGName($row["g_name"]); // q(g_name) <- t(g_name)
+            $obj->setGId($row["g_id"]); // q <- t
+            $obj->setGName($row["g_name"]); // q <- t
             return $obj;
         }
         return FALSE;
@@ -79,9 +79,9 @@ class GroupsDao {
         $res = array();
         $_map_cb = function ($row) use (&$res) {
             $obj = new Group();
-            $obj->setGId($row["g_id"]); // q(g_id) <- q(g_id)
-            $obj->setGName($row["g_name"]); // q(g_name) <- q(g_name)
-            $obj->setTasksCount($row["tasks_count"]); // q(tasks_count) <- q(tasks_count)
+            $obj->setGId($row["g_id"]); // q <- q
+            $obj->setGName($row["g_name"]); // q <- q
+            $obj->setTasksCount($row["tasks_count"]); // q <- q
             array_push($res, $obj);
         };
         $this->ds->queryRowList($sql, array(), $_map_cb);

@@ -6,12 +6,12 @@ namespace dto;
 
 class Task {
 
-    private $tId; // Integer t(t_id)
-    private $gId; // Integer t(g_id)
-    private $tPriority; // Integer t(t_priority)
-    private $tDate; // String t(t_date)
-    private $tSubject; // String t(t_subject)
-    private $tComments; // String t(t_comments)
+    private $tId; // Integer t
+    private $gId; // Integer t
+    private $tPriority; // Integer t
+    private $tDate; // String t
+    private $tSubject; // String t
+    private $tComments; // String t
 
     /**
      * @return Integer

@@ -6,9 +6,9 @@ namespace dto;
 
 class Group {
 
-    private $gId; // Object q(g_id)
-    private $gName; // Object q(g_name)
-    private $tasksCount; // Object q(tasks_count)
+    private $gId; // Object q
+    private $gName; // Object q
+    private $tasksCount; // Object q
 
     /**
      * @return Object
