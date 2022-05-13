@@ -4,9 +4,9 @@
 
     <folders target="dal" sql="sqldalmaker/sql" />
 
-    <dto scope="dto" inheritance="" field-names-mode="1" single-file="" />
+    <dto scope="dto" inheritance="" field-names-mode="1" single-file="" macro=""/>
 
-    <dao scope="dao" />
+    <dao scope="dao" macro=""/>
 
     <external-vm-file path="" />
         
@@ -29,4 +29,8 @@
         <type detected="java.lang.Object" target="Object"/>
     </type-map>
 
+    <macros>
+        
+    </macros>
+    
 </settings>

@@ -42,8 +42,8 @@ class GroupsDao {
         $row = $this->ds->queryRow($sql, array($gId));
         if ($row) {
             $obj = new Group();
-            $obj->setGId($row["g_id"]); // q <- t
-            $obj->setGName($row["g_name"]); // q <- t
+            $obj->setGId($row["g_id"]); // t <- t
+            $obj->setGName($row["g_name"]); // t <- t
             return $obj;
         }
         return FALSE;
