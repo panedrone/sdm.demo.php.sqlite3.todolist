@@ -27,8 +27,19 @@ if (isset($uri[3])) {
     }
 }
 
+// https://github.com/symfony/http-foundation/blob/5.4/Response.php
+
+class Response
+{
+    const HTTP_CREATED = 201;
+    const HTTP_NO_CONTENT = 204;
+
+    const HTTP_BAD_REQUEST = 400;
+    const HTTP_NOT_FOUND = 404;
+}
+
 header("HTTP/1.1 404 Not Found");
-http_response_code(404);
+http_response_code(Response::HTTP_NOT_FOUND);
 
 function handle_groups($uri, $method)
 {
@@ -44,11 +55,12 @@ function handle_groups($uri, $method)
     if ($method == "POST") {
         $data = json_decode(file_get_contents("php://input"));
         GroupsController::createGroup($data);
+        http_response_code(Response::HTTP_CREATED);
     } else if ($method == "GET") {
         $arr = GroupsController::getGroups();
         echo json_encode($arr);
     } else {
-        http_response_code(400); // bad request
+        http_response_code(Response::HTTP_BAD_REQUEST);
     }
 }
 
@@ -62,8 +74,9 @@ function handle_group($g_id, $method)
         GroupsController::updateGroup($g_id, $data);
     } else if ($method == "DELETE") {
         GroupsController::deleteGroup($g_id);
+        http_response_code(Response::HTTP_NO_CONTENT);
     } else {
-        http_response_code(400); // bad request
+        http_response_code(Response::HTTP_BAD_REQUEST);
     }
 }
 
@@ -72,11 +85,12 @@ function handle_group_tasks($g_id, $method)
     if ($method == "POST") {
         $data = json_decode(file_get_contents("php://input"));
         GroupTasksController::createTask($g_id, $data);
+        http_response_code(Response::HTTP_CREATED);
     } else if ($method == "GET") {
         $arr = GroupTasksController::getGroupTasks($g_id);
         echo json_encode($arr);
     } else {
-        http_response_code(400); // bad request
+        http_response_code(Response::HTTP_BAD_REQUEST);
     }
 }
 
@@ -92,11 +106,12 @@ function handle_task($uri, $method)
             TaskController::updateTask($t_id, $data);
         } else if ($method == "DELETE") {
             TaskController::deleteTask($t_id);
+            http_response_code(Response::HTTP_NO_CONTENT);
         } else {
-            http_response_code(400); // bad request
+            http_response_code(Response::HTTP_BAD_REQUEST);
         }
     } else {
-        http_response_code(400); // bad request
+        http_response_code(Response::HTTP_BAD_REQUEST);
     }
 }
 
