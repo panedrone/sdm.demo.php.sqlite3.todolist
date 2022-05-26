@@ -1,11 +1,10 @@
 <?php
 
-require "../bootstrap.php";
+require_once '../controllers/GroupsController.php';
+require_once '../controllers/GroupTasksController.php';
+require_once '../controllers/TaskController.php';
 
-include_once '../dal/GroupsDao.php';
-include_once '../dal/TasksDao.php';
-include_once '../dal/Group.php';
-include_once '../dal/Task.php';
+// https://developer.okta.com/blog/2019/03/08/simple-rest-api-php
 
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
@@ -16,130 +15,83 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 $uri = explode('/', $uri);
 
-function handle_groups($uri)
-{
+if (isset($uri[3])) {
     $method = filter_input(INPUT_SERVER, 'REQUEST_METHOD', FILTER_SANITIZE_SPECIAL_CHARS);
+    $api = $uri[3];
+    if ($api === 'groups') {
+        handle_groups($uri, $method);
+        return;
+    } else if ($api === 'task') {
+        handle_task($uri, $method);
+        return;
+    }
+}
+
+header("HTTP/1.1 404 Not Found");
+http_response_code(404);
+
+function handle_groups($uri, $method)
+{
     if (isset($uri[4])) {
         $g_id = (int)$uri[4];
         if (isset($uri[5]) && $uri[5] === 'tasks') {
-            handle_group_tasks($g_id);
-            return;
+            handle_group_tasks($g_id, $method);
+        } else {
+            handle_group($g_id, $method);
         }
-        handle_group($g_id);
         return;
     }
-    $dao = new GroupsDao(ds());
     if ($method == "POST") {
         $data = json_decode(file_get_contents("php://input"));
-        $gr = new Group();
-        $gr->setGName($data->g_name);
-        $dao->createGroup($gr);
+        GroupsController::createGroup($data);
     } else if ($method == "GET") {
-        $groups = $dao->getGroups();
-        $arr = array();
-        foreach ($groups as $gr) {
-            $item = array(
-                "g_id" => $gr->getGId(),
-                "g_name" => $gr->getGName(),
-                // "g_name" => html_entity_decode($description),
-                "tasks_count" => $gr->getTasksCount(),
-            );
-            array_push($arr, $item);
-        }
+        $arr = GroupsController::getGroups();
         echo json_encode($arr);
     } else {
         http_response_code(400); // bad request
     }
 }
 
-function handle_group($g_id)
+function handle_group($g_id, $method)
 {
-    $method = filter_input(INPUT_SERVER, 'REQUEST_METHOD', FILTER_SANITIZE_SPECIAL_CHARS);
-    $dao = new GroupsDao(ds());
     if ($method == "GET") {
-        $gr = $dao->readGroup($g_id);
-        $item = array(
-            "g_id" => $gr->getGId(),
-            "g_name" => $gr->getGName(),
-            // "g_name" => html_entity_decode($description),
-            "tasks_count" => $gr->getTasksCount(),
-        );
+        $item = GroupsController::readGroup($g_id);
         echo json_encode($item);
     } else if ($method == "PUT") {
         $data = json_decode(file_get_contents("php://input"));
-        $gr = new Group();
-        $gr->setGId($g_id);
-        $gr->setGName($data->g_name);
-        $dao->updateGroup($gr);
-        //http_response_code(200);
+        GroupsController::updateGroup($g_id, $data);
     } else if ($method == "DELETE") {
-        $dao->deleteGroup($g_id);
+        GroupsController::deleteGroup($g_id);
     } else {
         http_response_code(400); // bad request
     }
 }
 
-function handle_group_tasks($g_id)
+function handle_group_tasks($g_id, $method)
 {
-    $dao = new TasksDao(ds());
-    $method = filter_input(INPUT_SERVER, 'REQUEST_METHOD', FILTER_SANITIZE_SPECIAL_CHARS);
     if ($method == "POST") {
         $data = json_decode(file_get_contents("php://input"));
-        $t = new Task();
-        $t->setGId($g_id);
-        $t_date = date("Y-m-d H:i:s");
-        $t->setTDate($t_date);
-        $t->setTSubject($data->t_subject);
-        $t->setTPriority(1);
-        $t->setTComments("");
-        $dao->createTask($t);
+        GroupTasksController::createTask($g_id, $data);
     } else if ($method == "GET") {
-        $tasks = $dao->getGroupTasks($g_id);
-        $arr = array();
-        foreach ($tasks as $t) {
-            $item = array(
-                "t_id" => $t->getTId(),
-                "t_subject" => $t->getTSubject(),
-                // "tasks_count" => html_entity_decode($description),
-                "t_date" => $t->getTDate(),
-                "t_priority" => $t->getTPriority(),
-                // "t_comments" => $t->getTComments(),  no comments on get task list
-            );
-            array_push($arr, $item);
-        }
+        $arr = GroupTasksController::getGroupTasks($g_id);
         echo json_encode($arr);
     } else {
         http_response_code(400); // bad request
     }
 }
 
-function handle_task($uri)
+function handle_task($uri, $method)
 {
     if (isset($uri[4])) {
         $t_id = (int)$uri[4];
-        $dao = new TasksDao(ds());
-        $method = filter_input(INPUT_SERVER, 'REQUEST_METHOD', FILTER_SANITIZE_SPECIAL_CHARS);
         if ($method == "GET") {
-            $t = $dao->readTask($t_id);
-            $item = array(
-                "t_id" => $t->getTId(),
-                "t_subject" => $t->getTSubject(),
-                // "t_subject" => html_entity_decode($description),
-                "t_date" => $t->getTDate(),
-                "t_priority" => $t->getTPriority(),
-                "t_comments" => $t->getTComments(),
-            );
+            $item = TaskController::readTask($t_id);
             echo json_encode($item);
         } else if ($method == "PUT") {
             $data = json_decode(file_get_contents("php://input"));
-            $t = $dao->readTask($t_id);
-            $t->setTDate($data->t_date);
-            $t->setTSubject($data->t_subject);
-            $t->setTPriority($data->t_priority);
-            $t->setTComments($data->t_comments);
-            $dao->updateTask($t);
+            TaskController::updateTask($t_id, $data);
         } else if ($method == "DELETE") {
-            $dao->deleteTask($t_id);
+            TaskController::deleteTask($t_id);
         } else {
             http_response_code(400); // bad request
         }
@@ -148,16 +100,3 @@ function handle_task($uri)
     }
 }
 
-if (isset($uri[3])) {
-    $api = $uri[3];
-    if ($api === 'groups') {
-        handle_groups($uri);
-        return;
-    } else if ($api === 'task') {
-        handle_task($uri);
-        return;
-    }
-}
-
-header("HTTP/1.1 404 Not Found");
-http_response_code(404);
