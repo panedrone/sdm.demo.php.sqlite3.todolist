@@ -4,9 +4,9 @@
 
     <folders target="dal" sql="sqldalmaker/sql" />
 
-    <dto scope="dto" inheritance="" field-names-mode="1" single-file="" macro=""/>
+    <dto scope="" inheritance="" field-names-mode="1" single-file="" macro=""/>
 
-    <dao scope="dao" macro=""/>
+    <dao scope="" macro=""/>
 
     <external-vm-file path="" />
         

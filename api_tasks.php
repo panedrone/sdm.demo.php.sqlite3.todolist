@@ -1,12 +1,11 @@
 <?php
 
-include_once './dal/DataStore.php';
+include_once 'bootstrap.php';
+
 include_once './dal/TasksDao.php';
 include_once './dal/Task.php';
 
-$ds = new DataStore();
-$ds->open();
-$dao = new dao\TasksDao($ds);
+$dao = new TasksDao(ds());
 
 $method = filter_input(INPUT_SERVER, 'REQUEST_METHOD', FILTER_SANITIZE_SPECIAL_CHARS);
 $t_id = filter_input(INPUT_GET, "t_id", FILTER_SANITIZE_NUMBER_INT);
@@ -44,7 +43,7 @@ if (!$g_id) {
 }
 if ($method == "POST") {
     $data = json_decode(file_get_contents("php://input"));
-    $t = new dto\Task();
+    $t = new Task();
     $t->setGId($g_id);
     $t_date = date("Y-m-d H:i:s");
     $t->setTDate($t_date);

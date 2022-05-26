@@ -1,12 +1,10 @@
 <?php
 
-include_once './dal/DataStore.php';
+include_once 'bootstrap.php';
 include_once './dal/GroupsDao.php';
 include_once './dal/Group.php';
 
-$ds = new DataStore();
-$ds->open();
-$dao = new dao\GroupsDao($ds);
+$dao = new GroupsDao(ds());
 
 $method = filter_input(INPUT_SERVER, 'REQUEST_METHOD', FILTER_SANITIZE_SPECIAL_CHARS);
 
@@ -23,7 +21,7 @@ if ($g_id) {
         echo json_encode($item);
     } else if ($method == "PUT") {
         $data = json_decode(file_get_contents("php://input"));
-        $gr = new dto\Group();
+        $gr = new Group();
         $gr->setGId($g_id);
         $gr->setGName($data->g_name);
         $dao->updateGroup($gr);
@@ -37,7 +35,7 @@ if ($g_id) {
 }
 if ($method == "POST") {
     $data = json_decode(file_get_contents("php://input"));
-    $gr = new dto\Group();
+    $gr = new Group();
     $gr->setGName($data->g_name);
     $dao->createGroup($gr);
     return;
