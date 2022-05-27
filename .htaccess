@@ -1,4 +1,4 @@
-DirectoryIndex index.php
+DirectoryIndex index.html
 
 # https://css-tricks.com/forums/topic/use-php-instead-of-htaccess-to-internally-redirect-to-query-string/
 
@@ -8,5 +8,4 @@ RewriteCond %{REQUEST_FILENAME} !-f
 
 RewriteCond %{REQUEST_FILENAME} !-d
 
-
-RewriteRule ^(.*)$ index.php?url=$1 [PT,L]
+RewriteRule ^(.*)$ api/index.php?url=$1 [PT,L]
