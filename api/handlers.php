@@ -1,5 +1,9 @@
 <?php
 
+require_once '../controllers/GroupsController.php';
+require_once '../controllers/GroupTasksController.php';
+require_once '../controllers/TaskController.php';
+
 require_once 'utils.php';
 
 $method = filter_input(INPUT_SERVER, 'REQUEST_METHOD', FILTER_SANITIZE_SPECIAL_CHARS);

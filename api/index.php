@@ -1,9 +1,5 @@
 <?php
 
-require_once '../controllers/GroupsController.php';
-require_once '../controllers/GroupTasksController.php';
-require_once '../controllers/TaskController.php';
-
 require_once 'Route.php';
 require_once 'handlers.php';
 
