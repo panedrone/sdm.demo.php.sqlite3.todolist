@@ -1,5 +1,9 @@
 GET http://localhost/sdm_demo_php_todolist/api/groups
 
+############## 405 (Method Not Allowed);
+
+PUT http://localhost/sdm_demo_php_todolist/api/groups
+
 ##############
 
 GET http://localhost/sdm_demo_php_todolist/api/groups/4
