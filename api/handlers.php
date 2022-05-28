@@ -29,7 +29,7 @@ function handle_groups()
         GroupsController::createGroup($data);
         http_response_code(Response::HTTP_CREATED);
     } else if ($method == "GET") {
-        $arr = GroupsController::getGroups();
+        $arr = GroupsController::readGroups();
         json_resp($arr);
     }
 }
@@ -57,7 +57,7 @@ function handle_group_tasks($g_id)
         GroupTasksController::createTask($g_id, $data);
         http_response_code(Response::HTTP_CREATED);
     } else if ($method == "GET") {
-        $arr = GroupTasksController::getGroupTasks($g_id);
+        $arr = GroupTasksController::readGroupTasks($g_id);
         json_resp($arr);
     }
 }

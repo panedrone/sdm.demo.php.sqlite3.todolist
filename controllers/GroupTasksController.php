@@ -22,7 +22,7 @@ class GroupTasksController
         $dao->createTask($t);
     }
 
-    public static function getGroupTasks($g_id)
+    public static function readGroupTasks($g_id): array
     {
         $dao = new TasksDao(ds());
         $tasks = $dao->getGroupTasks($g_id);
@@ -31,10 +31,8 @@ class GroupTasksController
             $item = array(
                 "t_id" => $t->getTId(),
                 "t_subject" => $t->getTSubject(),
-                // "tasks_count" => html_entity_decode($description),
                 "t_date" => $t->getTDate(),
                 "t_priority" => $t->getTPriority(),
-                // "t_comments" => $t->getTComments(),  no comments on get task list
             );
             array_push($arr, $item);
         }

@@ -15,7 +15,7 @@ class GroupsController
         $dao->createGroup($gr);
     }
 
-    public static function getGroups()
+    public static function readGroups(): array
     {
         $dao = new GroupsDao(ds());
         $groups = $dao->getGroups();
@@ -24,7 +24,6 @@ class GroupsController
             $item = array(
                 "g_id" => $gr->getGId(),
                 "g_name" => $gr->getGName(),
-                // "g_name" => html_entity_decode($description),
                 "tasks_count" => $gr->getTasksCount(),
             );
             array_push($arr, $item);
@@ -32,14 +31,13 @@ class GroupsController
         return $arr;
     }
 
-    public static function readGroup($g_id)
+    public static function readGroup($g_id): array
     {
         $dao = new GroupsDao(ds());
         $gr = $dao->readGroup($g_id);
         $item = array(
             "g_id" => $gr->getGId(),
             "g_name" => $gr->getGName(),
-            // "g_name" => html_entity_decode($description),
             "tasks_count" => $gr->getTasksCount(),
         );
         return $item;

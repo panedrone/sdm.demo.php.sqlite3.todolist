@@ -13,7 +13,6 @@ class TaskController
         $item = array(
             "t_id" => $t->getTId(),
             "t_subject" => $t->getTSubject(),
-            // "t_subject" => html_entity_decode($description),
             "t_date" => $t->getTDate(),
             "t_priority" => $t->getTPriority(),
             "t_comments" => $t->getTComments(),
