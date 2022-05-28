@@ -6,7 +6,7 @@ require_once '../dal/TasksDao.php';
 
 class TaskController
 {
-    public static function readTask($t_id)
+    public static function readTask($t_id): array
     {
         $dao = new TasksDao(ds());
         $t = $dao->readTask($t_id);
