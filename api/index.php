@@ -6,6 +6,8 @@ require_once '../controllers/TaskController.php';
 
 require_once 'utils.php';
 
+require_once 'Route.php';
+
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 $uri = explode('/', $uri);
 

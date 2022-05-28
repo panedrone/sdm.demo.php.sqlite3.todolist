@@ -1,1 +1,9 @@
 GET http://localhost/sdm_demo_php_todolist/api/groups
+
+##############
+
+GET http://localhost/sdm_demo_php_todolist/api/groups/4
+
+##############
+
+GET http://localhost/sdm_demo_php_todolist/api/groups/4/tasks
