@@ -4,13 +4,7 @@ require_once '../controllers/GroupsController.php';
 require_once '../controllers/GroupTasksController.php';
 require_once '../controllers/TaskController.php';
 
-// https://developer.okta.com/blog/2019/03/08/simple-rest-api-php
-
-header("Access-Control-Allow-Origin: *");
-header("Content-Type: application/json; charset=UTF-8");
-header("Access-Control-Allow-Methods: OPTIONS,GET,POST,PUT,DELETE");
-header("Access-Control-Max-Age: 3600");
-header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+require_once 'utils.php';
 
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 $uri = explode('/', $uri);
@@ -58,7 +52,7 @@ function handle_groups($uri, $method)
         http_response_code(Response::HTTP_CREATED);
     } else if ($method == "GET") {
         $arr = GroupsController::getGroups();
-        echo json_encode($arr);
+        json_resp($arr);
     } else {
         http_response_code(Response::HTTP_BAD_REQUEST);
     }
@@ -68,7 +62,7 @@ function handle_group($g_id, $method)
 {
     if ($method == "GET") {
         $item = GroupsController::readGroup($g_id);
-        echo json_encode($item);
+        json_resp($item);
     } else if ($method == "PUT") {
         $data = json_decode(file_get_contents("php://input"));
         GroupsController::updateGroup($g_id, $data);
@@ -88,7 +82,7 @@ function handle_group_tasks($g_id, $method)
         http_response_code(Response::HTTP_CREATED);
     } else if ($method == "GET") {
         $arr = GroupTasksController::getGroupTasks($g_id);
-        echo json_encode($arr);
+        json_resp($arr);
     } else {
         http_response_code(Response::HTTP_BAD_REQUEST);
     }
@@ -100,7 +94,7 @@ function handle_task($uri, $method)
         $t_id = (int)$uri[4];
         if ($method == "GET") {
             $item = TaskController::readTask($t_id);
-            echo json_encode($item);
+            json_resp($item);
         } else if ($method == "PUT") {
             $data = json_decode(file_get_contents("php://input"));
             TaskController::updateTask($t_id, $data);
