@@ -3,14 +3,14 @@
            xsi:noNamespaceSchemaLocation="dao.xsd">
 
     <crud table="groups" dto="Group">
-        <create method="createGroup" />
-        <read method="readGroup" />
-        <update method="updateGroup" />
-        <delete method="deleteGroup" />
+        <create method="create_group" />
+        <read method="read_group" />
+        <update method="update_group" />
+        <delete method="delete_group" />
     </crud>
 
-    <query-dto-list dto="Group" method="getGroups" />
+    <query-dto-list dto="GroupEx" method="get_groups" />
 
-    <exec-dml method="deleteTasks(g_id)" ref="delete_group_tasks.sql" />
+    <exec-dml method="delete_tasks(g_id)" ref="delete_group_tasks.sql" />
     
 </dao-class>

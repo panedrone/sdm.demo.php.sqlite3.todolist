@@ -4,7 +4,7 @@
 
     <folders target="dal" sql="sdm/sql"/>
 
-    <dto scope="" inheritance="" field-names-mode="1" single-file="" macro="${php-dto}"/>
+    <dto scope="" inheritance="" field-names-mode="2" macro="${php-dto}"/>
 
     <dao scope="" macro=""/>
 
@@ -46,13 +46,13 @@ class ${class_name}
 {
 #foreach($f in ${fields})
     /**
-     * @var $f.ScalarType
+     * @var $f.Type
      */
     private ${d}${f.Name};
 #end
 #foreach($f in ${fields})
 
-    public function ${f.getterMethod()}()#if($f.ScalarType!="object"): $f.ScalarType
+    public function ${f.getterMethod()}()#if($f.Type!="object"): $f.Type
 #else
 
 #end
@@ -60,7 +60,7 @@ class ${class_name}
         return ${d}this->$f.Name;
     }
 
-    public function ${f.setterMethod()}(#if($f.ScalarType!="object")$f.ScalarType #end${d}value)
+    public function ${f.setterMethod()}(#if($f.Type!="object")$f.Type #end${d}value)
     {
         ${d}this->$f.getName() = ${d}value;
     }

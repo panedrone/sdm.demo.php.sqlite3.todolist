@@ -11,20 +11,20 @@ class GroupsController
     {
         $dao = new GroupsDao(ds());
         $gr = new Group();
-        $gr->setGName($data->g_name);
-        $dao->createGroup($gr);
+        $gr->set_g_name($data->g_name);
+        $dao->create_group($gr);
     }
 
     public static function readGroups(): array
     {
         $dao = new GroupsDao(ds());
-        $groups = $dao->getGroups();
+        $groups = $dao->get_groups();
         $arr = array();
         foreach ($groups as $gr) {
             $item = array(
-                "g_id" => $gr->getGId(),
-                "g_name" => $gr->getGName(),
-                "tasks_count" => $gr->getTasksCount(),
+                "g_id" => $gr->get_g_id(),
+                "g_name" => $gr->get_g_name(),
+                "tasks_count" => $gr->get_tasks_count(),
             );
             array_push($arr, $item);
         }
@@ -34,11 +34,10 @@ class GroupsController
     public static function readGroup($g_id): array
     {
         $dao = new GroupsDao(ds());
-        $gr = $dao->readGroup($g_id);
+        $gr = $dao->read_group($g_id);
         $item = array(
-            "g_id" => $gr->getGId(),
-            "g_name" => $gr->getGName(),
-            "tasks_count" => $gr->getTasksCount(),
+            "g_id" => $gr->get_g_id(),
+            "g_name" => $gr->get_g_name(),
         );
         return $item;
     }
@@ -47,14 +46,14 @@ class GroupsController
     {
         $dao = new GroupsDao(ds());
         $gr = new Group();
-        $gr->setGId($g_id);
-        $gr->setGName($data->g_name);
-        $dao->updateGroup($gr);
+        $gr->set_g_id($g_id);
+        $gr->set_g_name($data->g_name);
+        $dao->update_group($gr);
     }
 
     public static function deleteGroup($g_id)
     {
         $dao = new GroupsDao(ds());
-        $dao->deleteGroup($g_id);
+        $dao->delete_group($g_id);
     }
 }
