@@ -31,7 +31,7 @@ class TasksDao
 
     /**
      * C(R)UD: tasks
-     * @param Integer $tId
+     * @param int $tId
      * @return Task|FALSE on failure
      */
     public function readTask($tId)
@@ -64,7 +64,7 @@ class TasksDao
 
     /**
      * CRU(D): tasks
-     * @param Integer $tId
+     * @param int $tId
      * @return int the affected rows count
      */
     public function deleteTask($tId)
@@ -74,7 +74,7 @@ class TasksDao
     }
 
     /**
-     * @param String $g_id
+     * @param string $g_id
      * @return Task[]
      */
     public function getGroupTasks($g_id)

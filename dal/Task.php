@@ -6,86 +6,86 @@
 class Task
 {
     /**
-     * @var Integer
+     * @var int
      */
     private $tId;
     /**
-     * @var Integer
+     * @var int
      */
     private $gId;
     /**
-     * @var Integer
+     * @var int
      */
     private $tPriority;
     /**
-     * @var String
+     * @var string
      */
     private $tDate;
     /**
-     * @var String
+     * @var string
      */
     private $tSubject;
     /**
-     * @var String
+     * @var string
      */
     private $tComments;
 
-    public function getTId()
+    public function getTId(): int
     {
         return $this->tId;
     }
 
-    public function setTId($value)
+    public function setTId(int $value)
     {
         $this->tId = $value;
     }
 
-    public function getGId()
+    public function getGId(): int
     {
         return $this->gId;
     }
 
-    public function setGId($value)
+    public function setGId(int $value)
     {
         $this->gId = $value;
     }
 
-    public function getTPriority()
+    public function getTPriority(): int
     {
         return $this->tPriority;
     }
 
-    public function setTPriority($value)
+    public function setTPriority(int $value)
     {
         $this->tPriority = $value;
     }
 
-    public function getTDate()
+    public function getTDate(): string
     {
         return $this->tDate;
     }
 
-    public function setTDate($value)
+    public function setTDate(string $value)
     {
         $this->tDate = $value;
     }
 
-    public function getTSubject()
+    public function getTSubject(): string
     {
         return $this->tSubject;
     }
 
-    public function setTSubject($value)
+    public function setTSubject(string $value)
     {
         $this->tSubject = $value;
     }
 
-    public function getTComments()
+    public function getTComments(): string
     {
         return $this->tComments;
     }
 
-    public function setTComments($value)
+    public function setTComments(string $value)
     {
         $this->tComments = $value;
     }

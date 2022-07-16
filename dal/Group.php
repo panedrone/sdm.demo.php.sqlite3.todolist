@@ -6,15 +6,15 @@
 class Group
 {
     /**
-     * @var Object
+     * @var object
      */
     private $gId;
     /**
-     * @var Object
+     * @var object
      */
     private $gName;
     /**
-     * @var Object
+     * @var object
      */
     private $tasksCount;
 

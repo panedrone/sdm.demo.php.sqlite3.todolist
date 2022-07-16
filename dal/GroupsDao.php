@@ -31,7 +31,7 @@ class GroupsDao
 
     /**
      * C(R)UD: groups
-     * @param Integer $gId
+     * @param int $gId
      * @return Group|FALSE on failure
      */
     public function readGroup($gId)
@@ -60,7 +60,7 @@ class GroupsDao
 
     /**
      * CRU(D): groups
-     * @param Integer $gId
+     * @param int $gId
      * @return int the affected rows count
      */
     public function deleteGroup($gId)
@@ -90,7 +90,7 @@ class GroupsDao
     }
 
     /**
-     * @param String $g_id
+     * @param string $g_id
      * @return int the affected rows count
      */
     public function deleteTasks($g_id)
