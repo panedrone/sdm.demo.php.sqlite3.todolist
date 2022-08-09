@@ -26,7 +26,7 @@ class DataStore { // no inheritance is also OK
         if (!is_null($this->db)) {
             throw new Exception("Already open");
         }
-        $db_name = '../todo-list.sqlite';
+        $db_name = '../todolist.sqlite';
         $this->db = new PDO("sqlite:$db_name");
         // http://stackoverflow.com/questions/15058129/php-pdo-inserting-data
         // By default, PDO does not throw exceptions. To make it throw exceptions on error, call

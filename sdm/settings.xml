@@ -12,8 +12,8 @@
 
     <cpp class-prefix=""/>
 
-    <jdbc jar="sdm/sqlite-jdbc-3.36.0.3.jar" class="org.sqlite.JDBC"
-          url="jdbc:sqlite:$PROJECT_DIR$/todo-list.sqlite" user="" pwd=""/>
+    <jdbc jar="sdm/sqlite-jdbc-3.39.2.0.jar" class="org.sqlite.JDBC"
+          url="jdbc:sqlite:$PROJECT_DIR$/todolist.sqlite" user="" pwd=""/>
 
     <type-map default="">
         <type detected="java.lang.Short" target="int"/>
