@@ -4,6 +4,7 @@
 
     <crud table="groups" dto="Group">
         <create method="create_group" />
+        <read-all/>
         <read method="read_group" />
         <update method="update_group" />
         <delete method="delete_group" />

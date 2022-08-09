@@ -8,6 +8,9 @@ include_once __DIR__ . '/Task.php';
 
 class TasksDao
 {
+    /**
+     * @var \DataStore
+     */
     protected $ds;
 
     public function __construct($ds)
@@ -17,11 +20,12 @@ class TasksDao
 
     /**
      * (C)RUD: tasks
-     * Generated values are passed to DTO.
+     * Generated/AI values are passed to $p param
      * @param Task $p
-     * @return TRUE|FALSE on success|failure
+     * @return void
+     * @throws \Exception
      */
-    public function create_task(Task $p)
+    public function create_task($p)
     {
         $sql = "insert into tasks (g_id, t_priority, t_date, t_subject, t_comments) values (?, ?, ?, ?, ?)";
         $ai_values = array("t_id" => null);
@@ -34,6 +38,7 @@ class TasksDao
      * C(R)UD: tasks
      * @param int $t_id
      * @return Task|FALSE on failure
+     * @throws \Exception
      */
     public function read_task($t_id)
     {
@@ -55,9 +60,9 @@ class TasksDao
     /**
      * CR(U)D: tasks
      * @param Task $p
-     * @return int the affected rows count
+     * @throws \Exception
      */
-    public function update_task(Task $p)
+    public function update_task($p)
     {
         $sql = "update tasks set g_id=?, t_priority=?, t_date=?, t_subject=?, t_comments=? where t_id=?";
         return $this->ds->execDML($sql, array($p->get_g_id(), $p->get_t_priority(), $p->get_t_date(), $p->get_t_subject(), $p->get_t_comments(), $p->get_t_id()));
@@ -66,7 +71,7 @@ class TasksDao
     /**
      * CRU(D): tasks
      * @param int $t_id
-     * @return int the affected rows count
+     * @throws \Exception
      */
     public function delete_task($t_id)
     {
@@ -77,9 +82,9 @@ class TasksDao
     /**
      * @param string $g_id
      * @return Task[]
+     * @throws \Exception
      */
-    public function getGroupTasks($g_id)
-    {
+    public function getGroupTasks($g_id)    {
         $sql = "select * from tasks where g_id =?"
             . "\n order by t_id";
         $res = array();
@@ -96,5 +101,4 @@ class TasksDao
         $this->ds->queryRowList($sql, array($g_id), $_map_cb);
         return $res;
     }
-
 }

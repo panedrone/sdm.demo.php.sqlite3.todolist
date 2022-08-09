@@ -67,7 +67,7 @@ class DataStore { // no inheritance is also OK
             // of a sequence object for the name parameter.
             // This method may not return a meaningful or consistent result across different PDO drivers,
             // because the underlying database may not even support the notion of auto-increment fields or sequences.
-            foreach ($ai_values as $key) {
+            foreach (array_keys($ai_values) as $key) {
                 $id = $this->db->lastInsertId($key);
                 $ai_values[$key] = $id;
             }

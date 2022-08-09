@@ -31,6 +31,8 @@ array(#foreach ($param in ${params2})#set($p=$param.getName())#list_item(${veloc
         ${d}sql = ${sql};
 #end
 #end
+#macro(pk_array $params)
+array(#foreach($p in $params)#if($velocityCount>1), #end"$p.getName()" => ${d}$p.getName()#end)#end
 ## ====================================================================================================================
 #if ($mode=="dto_class")
 <?php
@@ -111,9 +113,7 @@ class ${class_name}
     {
         ${d}this->ds = ${d}ds;
     }
-#foreach($method in ${methods})
-${method}
-#end
+#foreach($method in ${methods})${method}#end
 }
 ## =================================================================================================
 #elseif($mode=="dao_create")
@@ -125,7 +125,7 @@ ${method}
      * @return void
      * @throws \Exception
      */
-#if ($crud &&  $model=="doctrine")
+#if ($crud &&  $model != "")
     public function ${method_name}(${d}p)
     {
         ${d}this->ds->create(${d}p);
@@ -173,19 +173,18 @@ ${method}
      * @return mixed ${returned_type_name} ${fields.get(0).getColumnName()} or FALSE on failure
 #end
 #end
+     * @throws \Exception
      */
 #if($fetch_list)
-#if ($crud)
+#if ($crud &&  $model != "")
     public function ${method_name}()
     {
         return ${d}this->ds->readAll(${returned_type_name}::class);
     }
 #else
 #if(${dto_param} != "")
-    public function ${method_name}(#param_decls_dto($is_external_sql)${dto_param} ${d}p)
-#else
-    public function ${method_name}(#param_decls($is_external_sql $params))
-#end
+    public function ${method_name}(#param_decls_dto($is_external_sql)${dto_param} ${d}p)#else
+    public function ${method_name}(#param_decls($is_external_sql $params))#end
     {
 #sql_var(${is_external_sql} $sql)
 #if($use_dto)
@@ -205,10 +204,10 @@ ${method}
     }
 #end
 #else
-#if ($crud)
+#if ($crud &&  $model != "")
     public function ${method_name}(#param_decls(false $params))
     {
-        return ${d}this->ds->read(${returned_type_name}::class, #param_decls(false $params));
+        return ${d}this->ds->read(${returned_type_name}::class, #pk_array($params));
     }
 #else
 #if(${dto_param} != "")
@@ -255,11 +254,10 @@ ${method}
      * @param ${param.getType()} ${d}${param.getName()}
 #end
 #end
-#if ($crud)
-     * @throws \Exception
-#else
+#if (!$crud)
      * @return int the affected rows count
 #end
+     * @throws \Exception
      */
 #if(${dto_param} == "" ||  $method_type == "DELETE")
     public function ${method_name}(#param_decls($is_external_sql $params))
@@ -267,11 +265,11 @@ ${method}
     public function ${method_name}(#param_decls_dto($is_external_sql)${d}p)
 #end
     {
-#if ($crud &&  $model=="doctrine")
+#if ($crud &&  $model != "")
 #if ($method_type == "CREATE" || $method_type == "UPDATE")
         return ${d}this->ds->update(${d}p);
 #elseif ( $method_type == "DELETE")
-        return ${d}this->ds->delete(${dto_param}::class, #param_decls(false $params));
+        return ${d}this->ds->delete(${dto_param}::class, #pk_array($params));
 #else
         // ------------- invalid method_type
 #end

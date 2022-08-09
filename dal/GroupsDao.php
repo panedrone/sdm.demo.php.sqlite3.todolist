@@ -9,6 +9,9 @@ include_once __DIR__ . '/GroupEx.php';
 
 class GroupsDao
 {
+    /**
+     * @var \DataStore
+     */
     protected $ds;
 
     public function __construct($ds)
@@ -18,11 +21,12 @@ class GroupsDao
 
     /**
      * (C)RUD: groups
-     * Generated values are passed to DTO.
+     * Generated/AI values are passed to $p param
      * @param Group $p
-     * @return TRUE|FALSE on success|failure
+     * @return void
+     * @throws \Exception
      */
-    public function create_group(Group $p)
+    public function create_group($p)
     {
         $sql = "insert into groups (g_name) values (?)";
         $ai_values = array("g_id" => null);
@@ -33,8 +37,27 @@ class GroupsDao
 
     /**
      * C(R)UD: groups
+     * @return Group[]
+     * @throws \Exception
+     */
+    public function read_group_list()    {
+        $sql = "select * from groups";
+        $res = array();
+        $_map_cb = function ($row) use (&$res) {
+            $obj = new Group();
+            $obj->set_g_id($row["g_id"]); // t <- t
+            $obj->set_g_name($row["g_name"]); // t <- t
+            array_push($res, $obj);
+        };
+        $this->ds->queryRowList($sql, array(), $_map_cb);
+        return $res;
+    }
+
+    /**
+     * C(R)UD: groups
      * @param int $g_id
      * @return Group|FALSE on failure
+     * @throws \Exception
      */
     public function read_group($g_id)
     {
@@ -52,9 +75,9 @@ class GroupsDao
     /**
      * CR(U)D: groups
      * @param Group $p
-     * @return int the affected rows count
+     * @throws \Exception
      */
-    public function update_group(Group $p)
+    public function update_group($p)
     {
         $sql = "update groups set g_name=? where g_id=?";
         return $this->ds->execDML($sql, array($p->get_g_name(), $p->get_g_id()));
@@ -63,7 +86,7 @@ class GroupsDao
     /**
      * CRU(D): groups
      * @param int $g_id
-     * @return int the affected rows count
+     * @throws \Exception
      */
     public function delete_group($g_id)
     {
@@ -73,9 +96,9 @@ class GroupsDao
 
     /**
      * @return GroupEx[]
+     * @throws \Exception
      */
-    public function get_groups()
-    {
+    public function get_groups()    {
         $sql = "select g.*, "
             . "\n (select count(*) from tasks where g_id=g.g_id) as tasks_count"
             . "\n from groups g";
@@ -94,11 +117,11 @@ class GroupsDao
     /**
      * @param string $g_id
      * @return int the affected rows count
+     * @throws \Exception
      */
     public function delete_tasks($g_id)
     {
         $sql = "delete from tasks where g_id=?";
         return $this->ds->execDML($sql, array($g_id));
     }
-
 }

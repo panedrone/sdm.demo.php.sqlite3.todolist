@@ -13,8 +13,12 @@ function handle_groups()
     global $method;
     if ($method == "POST") {
         $data = json_decode(file_get_contents("php://input"));
-        GroupsController::createGroup($data);
-        http_response_code(Response::HTTP_CREATED);
+        try {
+            GroupsController::createGroup($data);
+            http_response_code(Response::HTTP_CREATED);
+        } catch (Exception $e) {
+            http_response_code(Response::HTTP_BAD_REQUEST);
+        }
     } else if ($method == "GET") {
         $arr = GroupsController::readGroups();
         json_resp($arr);
