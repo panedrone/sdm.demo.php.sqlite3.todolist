@@ -100,14 +100,14 @@ class GroupsDao
      */
     public function get_groups()    {
         $sql = "select g.*, "
-            . "\n (select count(*) from tasks where g_id=g.g_id) as tasks_count"
+            . "\n (select count(*) from tasks where g_id=g.g_id) as g_tasks_count"
             . "\n from groups g";
         $res = array();
         $_map_cb = function ($row) use (&$res) {
             $obj = new GroupEx();
             $obj->set_g_id($row["g_id"]); // q <- q
             $obj->set_g_name($row["g_name"]); // q <- q
-            $obj->set_tasks_count($row["tasks_count"]); // q <- q
+            $obj->set_g_tasks_count($row["g_tasks_count"]); // q <- q
             array_push($res, $obj);
         };
         $this->ds->queryRowList($sql, array(), $_map_cb);

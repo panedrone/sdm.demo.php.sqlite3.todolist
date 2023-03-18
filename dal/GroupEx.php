@@ -14,6 +14,10 @@ class GroupEx
      */
     private $g_name;
     /**
+     * @var object
+     */
+    private $g_tasks_count;
+    /**
      * @var int
      */
     private $tasks_count;
@@ -36,6 +40,16 @@ class GroupEx
     public function set_g_name(string $value)
     {
         $this->g_name = $value;
+    }
+
+    public function get_g_tasks_count()
+    {
+        return $this->g_tasks_count;
+    }
+
+    public function set_g_tasks_count($value)
+    {
+        $this->g_tasks_count = $value;
     }
 
     public function get_tasks_count(): int
