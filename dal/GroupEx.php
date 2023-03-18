@@ -14,13 +14,9 @@ class GroupEx
      */
     private $g_name;
     /**
-     * @var object
-     */
-    private $g_tasks_count;
-    /**
      * @var int
      */
-    private $tasks_count;
+    private $g_tasks_count;
 
     public function get_g_id(): int
     {
@@ -42,23 +38,13 @@ class GroupEx
         $this->g_name = $value;
     }
 
-    public function get_g_tasks_count()
+    public function get_g_tasks_count(): int
     {
         return $this->g_tasks_count;
     }
 
-    public function set_g_tasks_count($value)
+    public function set_g_tasks_count(int $value)
     {
         $this->g_tasks_count = $value;
-    }
-
-    public function get_tasks_count(): int
-    {
-        return $this->tasks_count;
-    }
-
-    public function set_tasks_count(int $value)
-    {
-        $this->tasks_count = $value;
     }
 }
