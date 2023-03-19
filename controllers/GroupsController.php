@@ -21,6 +21,9 @@ class GroupsController
         $dao->create_group($gr);
     }
 
+    /**
+     * @throws Exception
+     */
     public static function readGroups(): array
     {
         $dao = new GroupsDao(ds());
@@ -37,6 +40,9 @@ class GroupsController
         return $arr;
     }
 
+    /**
+     * @throws Exception
+     */
     public static function readGroup($g_id): array
     {
         $dao = new GroupsDao(ds());
@@ -48,6 +54,9 @@ class GroupsController
         return $item;
     }
 
+    /**
+     * @throws Exception
+     */
     public static function updateGroup($g_id, $data)
     {
         $dao = new GroupsDao(ds());
@@ -57,6 +66,9 @@ class GroupsController
         $dao->update_group($gr);
     }
 
+    /**
+     * @throws Exception
+     */
     public static function deleteGroup($g_id)
     {
         $dao = new GroupsDao(ds());

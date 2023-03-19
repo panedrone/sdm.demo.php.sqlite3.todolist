@@ -9,6 +9,9 @@ require_once '../dal/Task.php';
 
 class GroupTasksController
 {
+    /**
+     * @throws Exception
+     */
     public static function createTask($g_id, $data)
     {
         $dao = new TasksDao(ds());
@@ -22,6 +25,9 @@ class GroupTasksController
         $dao->create_task($t);
     }
 
+    /**
+     * @throws Exception
+     */
     public static function readGroupTasks($g_id): array
     {
         $dao = new TasksDao(ds());

@@ -6,6 +6,9 @@ require_once '../dal/TasksDao.php';
 
 class TaskController
 {
+    /**
+     * @throws Exception
+     */
     public static function readTask($t_id): array
     {
         $dao = new TasksDao(ds());
@@ -20,6 +23,9 @@ class TaskController
         return $item;
     }
 
+    /**
+     * @throws Exception
+     */
     public static function updateTask($t_id, $data)
     {
         $dao = new TasksDao(ds());
@@ -31,6 +37,9 @@ class TaskController
         $dao->update_task($t);
     }
 
+    /**
+     * @throws Exception
+     */
     public static function deleteTask($t_id)
     {
         $dao = new TasksDao(ds());
