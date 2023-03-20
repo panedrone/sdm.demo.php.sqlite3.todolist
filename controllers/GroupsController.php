@@ -47,11 +47,10 @@ class GroupsController
     {
         $dao = new GroupsDao(ds());
         $gr = $dao->read_group($g_id);
-        $item = array(
+        return array(
             "g_id" => $gr->get_g_id(),
             "g_name" => $gr->get_g_name(),
         );
-        return $item;
     }
 
     /**
