@@ -84,7 +84,7 @@ class TasksDao
      * @return Task[]
      * @throws \Exception
      */
-    public function getGroupTasks($g_id)
+    public function get_group_tasks($g_id)
     {
         $sql = "select * from tasks where g_id =?"
             . "\n order by t_id";

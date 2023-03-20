@@ -31,7 +31,7 @@ class GroupTasksController
     public static function readGroupTasks($g_id): array
     {
         $dao = new TasksDao(ds());
-        $tasks = $dao->getGroupTasks($g_id);
+        $tasks = $dao->get_group_tasks($g_id);
         $arr = array();
         foreach ($tasks as $t) {
             $item = array(

@@ -22,12 +22,12 @@ dto.xml
 GroupsDao.xml
 ```xml
 <crud table="groups" dto="Group"/>
-<query-dto-list dto="GroupEx" method="get_groups" />
+<query-dto-list dto="GroupEx" method="get_groups"/>
 ```
 TasksDao.xml
 ```xml
 <crud table="tasks" dto="Task"/>
-<query-dto-list ref="get_group_tasks.sql" dto="Task" method="get_group_tasks(g_id)" />
+<query-dto-list ref="get_group_tasks.sql" dto="Task" method="get_group_tasks(g_id)"/>
 ```
 Generated code in action:
 ```php
@@ -40,9 +40,6 @@ require_once '../dal/Group.php';
 
 class GroupsController
 {
-    /**
-     * @throws Exception
-     */
     public static function createGroup($data)
     {
         $dao = new GroupsDao(ds());
@@ -54,9 +51,6 @@ class GroupsController
         $dao->create_group($gr);
     }
 
-    /**
-     * @throws Exception
-     */
     public static function readGroups(): array
     {
         $dao = new GroupsDao(ds());
@@ -73,9 +67,6 @@ class GroupsController
         return $arr;
     }
 
-    /**
-     * @throws Exception
-     */
     public static function readGroup($g_id): array
     {
         $dao = new GroupsDao(ds());
@@ -86,9 +77,6 @@ class GroupsController
         );
     }
 
-    /**
-     * @throws Exception
-     */
     public static function updateGroup($g_id, $data)
     {
         $dao = new GroupsDao(ds());
@@ -98,9 +86,6 @@ class GroupsController
         $dao->update_group($gr);
     }
 
-    /**
-     * @throws Exception
-     */
     public static function deleteGroup($g_id)
     {
         $dao = new GroupsDao(ds());
