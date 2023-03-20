@@ -10,15 +10,16 @@ class GroupsController
     /**
      * @throws Exception
      */
-    public static function createGroup($data)
+    public static function createGroup($data): ?string
     {
         $dao = new GroupsDao(ds());
         $gr = new Group();
-        if (strlen($data->g_name) == 0) {
-            throw new Exception("g_name?");
+        if (strlen(trim($data->g_name)) == 0) {
+            return "Group name not set";
         }
         $gr->set_g_name($data->g_name);
         $dao->create_group($gr);
+        return null;
     }
 
     /**

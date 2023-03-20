@@ -44,11 +44,12 @@ class GroupsController
     {
         $dao = new GroupsDao(ds());
         $gr = new Group();
-        if (strlen($data->g_name) == 0) {
-            throw new Exception("g_name?");
+        if (strlen(trim($data->g_name)) == 0) {
+            return "Group name not set";
         }
         $gr->set_g_name($data->g_name);
         $dao->create_group($gr);
+        return null;
     }
 
     public static function readGroups(): array
