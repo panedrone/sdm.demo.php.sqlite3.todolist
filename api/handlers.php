@@ -4,7 +4,8 @@ require_once '../controllers/GroupsController.php';
 require_once '../controllers/GroupTasksController.php';
 require_once '../controllers/TaskController.php';
 
-require_once 'utils.php';
+require_once './utils.php';
+require_once './validators.php';
 
 $method = filter_input(INPUT_SERVER, 'REQUEST_METHOD', FILTER_SANITIZE_SPECIAL_CHARS);
 
@@ -18,7 +19,9 @@ function handle_groups()
                 http_response_code(Response::HTTP_BAD_REQUEST);
                 return;
             }
-            if (!validate_group($data)) {
+            $err = validate_group($data);
+            if ($err != null) {
+                json_resp($err);
                 http_response_code(Response::HTTP_BAD_REQUEST);
                 return;
             }
@@ -46,7 +49,9 @@ function handle_group($g_id)
                 http_response_code(Response::HTTP_BAD_REQUEST);
                 return;
             }
-            if (!validate_group($data)) {
+            $err = validate_group($data);
+            if ($err != null) {
+                json_resp($err);
                 http_response_code(Response::HTTP_BAD_REQUEST);
                 return;
             }
@@ -70,7 +75,9 @@ function handle_group_tasks($g_id)
                 http_response_code(Response::HTTP_BAD_REQUEST);
                 return;
             }
-            if (!validate_task($data)) {
+            $err = validate_task($data, false);
+            if ($err != null) {
+                json_resp($err);
                 http_response_code(Response::HTTP_BAD_REQUEST);
                 return;
             }
@@ -98,7 +105,9 @@ function handle_task($t_id)
                 http_response_code(Response::HTTP_BAD_REQUEST);
                 return;
             }
-            if (!validate_task($data)) {
+            $err = validate_task($data, true);
+            if ($err != null) {
+                json_resp($err);
                 http_response_code(Response::HTTP_BAD_REQUEST);
                 return;
             }
@@ -110,14 +119,4 @@ function handle_task($t_id)
     } catch (Exception $e) {
         http_response_code(Response::HTTP_INTERNAL_SERVER_ERROR);
     }
-}
-
-function validate_group($data): bool
-{
-    return true; // TODO
-}
-
-function validate_task($data): bool
-{
-    return true; // TODO
 }
