@@ -9,25 +9,27 @@ Front-end is written in Vue.js, SQLite3 is used as database.
 
 dto.xml
 ```xml
-<dto-class name="Group" ref="groups"/>
+<dto-class name="Project" ref="projects"/>
 
-<dto-class name="GroupEx" ref="get_groups.sql">
-    <field column="g_id" type="int"/>
-    <field column="g_name" type="string"/>
-    <field column="g_tasks_count" type="int"/>
+<dto-class name="ProjectEx" ref="get_projects.sql">
+    <field column="p_id" type="int"/>
+    <field column="p_name" type="string"/>
+    <field column="p_tasks_count" type="int"/>
 </dto-class>
 
 <dto-class name="Task" ref="tasks"/>
 ```
-GroupsDao.xml
+ProjectsDao.xml
 ```xml
-<crud table="groups" dto="Group"/>
-<query-dto-list dto="GroupEx" method="get_groups"/>
+<crud table="projects" dto="Project"/>
+
+<query-dto-list dto="ProjectEx" method="get_projects"/>
 ```
 TasksDao.xml
 ```xml
 <crud table="tasks" dto="Task"/>
-<query-dto-list ref="get_project_tasks.sql" dto="Task" method="get_group_tasks(g_id)"/>
+
+<query-dto-list ref="get_project_tasks.sql" dto="Task" method="get_project_tasks(p_id)"/>
 ```
 Generated code in action:
 ```php
@@ -35,62 +37,62 @@ Generated code in action:
 
 require_once "../bootstrap.php";
 
-require_once '../dal/GroupsDao.php';
-require_once '../dal/Group.php';
+require_once '../dal/ProjectsDao.php';
+require_once '../dal/Project.php';
 
-class GroupsController
+class ProjectsController
 {
-    public static function createGroup($data)
+    public static function createProject($data)
     {
-        $dao = new GroupsDao(ds());
-        $gr = new Group();
-        if (strlen(trim($data->g_name)) == 0) {
-            return "Group name not set";
+        $dao = new ProjectsDao(ds());
+        $gr = new Project();
+        if (strlen(trim($data->p_name)) == 0) {
+            return "Project name not set";
         }
-        $gr->set_g_name($data->g_name);
-        $dao->create_group($gr);
+        $gr->set_p_name($data->p_name);
+        $dao->create_project($gr);
         return null;
     }
 
-    public static function readGroups(): array
+    public static function readProjects(): array
     {
-        $dao = new GroupsDao(ds());
-        $groups = $dao->get_groups();
+        $dao = new ProjectsDao(ds());
+        $projects = $dao->get_projects();
         $arr = array();
-        foreach ($groups as $gr) {
+        foreach ($projects as $gr) {
             $item = array(
-                "g_id" => $gr->get_g_id(),
-                "g_name" => $gr->get_g_name(),
-                "g_tasks_count" => $gr->get_g_tasks_count(),
+                "p_id" => $gr->get_p_id(),
+                "p_name" => $gr->get_p_name(),
+                "p_tasks_count" => $gr->get_p_tasks_count(),
             );
             array_push($arr, $item);
         }
         return $arr;
     }
 
-    public static function readGroup($g_id): array
+    public static function readProject($p_id): array
     {
-        $dao = new GroupsDao(ds());
-        $gr = $dao->read_group($g_id);
+        $dao = new ProjectsDao(ds());
+        $gr = $dao->read_project($p_id);
         return array(
-            "g_id" => $gr->get_g_id(),
-            "g_name" => $gr->get_g_name(),
+            "p_id" => $gr->get_p_id(),
+            "p_name" => $gr->get_p_name(),
         );
     }
 
-    public static function updateGroup($g_id, $data)
+    public static function updateProject($p_id, $data)
     {
-        $dao = new GroupsDao(ds());
-        $gr = new Group();
-        $gr->set_g_id($g_id);
-        $gr->set_g_name($data->g_name);
-        $dao->update_group($gr);
+        $dao = new ProjectsDao(ds());
+        $gr = new Project();
+        $gr->set_p_id($p_id);
+        $gr->set_p_name($data->p_name);
+        $dao->update_project($gr);
     }
 
-    public static function deleteGroup($g_id)
+    public static function deleteProject($p_id)
     {
-        $dao = new GroupsDao(ds());
-        $dao->delete_group($g_id);
+        $dao = new ProjectsDao(ds());
+        $dao->delete_project($p_id);
     }
 }
 ```
