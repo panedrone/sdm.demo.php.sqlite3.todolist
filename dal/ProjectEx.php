@@ -6,87 +6,45 @@
 class ProjectEx
 {
     /**
-     * @var object
+     * @var int
      */
     private $p_id;
     /**
-     * @var object
+     * @var string
      */
     private $p_name;
     /**
-     * @var object
+     * @var int
      */
     private $p_tasks_count;
-    /**
-     * @var int
-     */
-    private $g_id;
-    /**
-     * @var string
-     */
-    private $g_name;
-    /**
-     * @var int
-     */
-    private $g_tasks_count;
 
-    public function get_p_id()
+    public function get_p_id(): int
     {
         return $this->p_id;
     }
 
-    public function set_p_id($value)
+    public function set_p_id(int $value)
     {
         $this->p_id = $value;
     }
 
-    public function get_p_name()
+    public function get_p_name(): string
     {
         return $this->p_name;
     }
 
-    public function set_p_name($value)
+    public function set_p_name(string $value)
     {
         $this->p_name = $value;
     }
 
-    public function get_p_tasks_count()
+    public function get_p_tasks_count(): int
     {
         return $this->p_tasks_count;
     }
 
-    public function set_p_tasks_count($value)
+    public function set_p_tasks_count(int $value)
     {
         $this->p_tasks_count = $value;
-    }
-
-    public function get_g_id(): int
-    {
-        return $this->g_id;
-    }
-
-    public function set_g_id(int $value)
-    {
-        $this->g_id = $value;
-    }
-
-    public function get_g_name(): string
-    {
-        return $this->g_name;
-    }
-
-    public function set_g_name(string $value)
-    {
-        $this->g_name = $value;
-    }
-
-    public function get_g_tasks_count(): int
-    {
-        return $this->g_tasks_count;
-    }
-
-    public function set_g_tasks_count(int $value)
-    {
-        $this->g_tasks_count = $value;
     }
 }
