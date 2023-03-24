@@ -27,7 +27,7 @@ GroupsDao.xml
 TasksDao.xml
 ```xml
 <crud table="tasks" dto="Task"/>
-<query-dto-list ref="get_group_tasks.sql" dto="Task" method="get_group_tasks(g_id)"/>
+<query-dto-list ref="get_project_tasks.sql" dto="Task" method="get_group_tasks(g_id)"/>
 ```
 Generated code in action:
 ```php

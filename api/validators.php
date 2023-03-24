@@ -1,8 +1,8 @@
 <?php
 
-function validate_group($data): ?array
+function validate_project($data): ?array
 {
-    if ($data->g_name == null || strlen(trim($data->g_name)) == 0) {
+    if ($data->p_name == null || strlen(trim($data->p_name)) == 0) {
         return array("group" => "name not set");
     }
     return null;

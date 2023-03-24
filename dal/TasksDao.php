@@ -27,9 +27,9 @@ class TasksDao
      */
     public function create_task($p)
     {
-        $sql = "insert into tasks (g_id, t_priority, t_date, t_subject, t_comments) values (?, ?, ?, ?, ?)";
+        $sql = "insert into tasks (p_id, t_priority, t_date, t_subject, t_comments) values (?, ?, ?, ?, ?)";
         $ai_values = array("t_id" => null);
-        $res = $this->ds->insert($sql, array($p->get_g_id(), $p->get_t_priority(), $p->get_t_date(), $p->get_t_subject(), $p->get_t_comments()), $ai_values);
+        $res = $this->ds->insert($sql, array($p->get_p_id(), $p->get_t_priority(), $p->get_t_date(), $p->get_t_subject(), $p->get_t_comments()), $ai_values);
         $p->set_t_id($ai_values["t_id"]);
         return $res;
     }
@@ -47,7 +47,7 @@ class TasksDao
         if ($row) {
             $obj = new Task();
             $obj->set_t_id($row["t_id"]); // t <- t
-            $obj->set_g_id($row["g_id"]); // t <- t
+            $obj->set_p_id($row["p_id"]); // t <- t
             $obj->set_t_priority($row["t_priority"]); // t <- t
             $obj->set_t_date($row["t_date"]); // t <- t
             $obj->set_t_subject($row["t_subject"]); // t <- t
@@ -64,8 +64,8 @@ class TasksDao
      */
     public function update_task($p)
     {
-        $sql = "update tasks set g_id=?, t_priority=?, t_date=?, t_subject=?, t_comments=? where t_id=?";
-        return $this->ds->execDML($sql, array($p->get_g_id(), $p->get_t_priority(), $p->get_t_date(), $p->get_t_subject(), $p->get_t_comments(), $p->get_t_id()));
+        $sql = "update tasks set p_id=?, t_priority=?, t_date=?, t_subject=?, t_comments=? where t_id=?";
+        return $this->ds->execDML($sql, array($p->get_p_id(), $p->get_t_priority(), $p->get_t_date(), $p->get_t_subject(), $p->get_t_comments(), $p->get_t_id()));
     }
 
     /**
@@ -80,26 +80,26 @@ class TasksDao
     }
 
     /**
-     * @param string $g_id
+     * @param string $p_id
      * @return Task[]
      * @throws \Exception
      */
-    public function get_group_tasks($g_id)
+    public function get_project_tasks($p_id)
     {
-        $sql = "select * from tasks where g_id =?"
+        $sql = "select * from tasks where p_id =?"
             . "\n order by t_id";
         $res = array();
         $_map_cb = function ($row) use (&$res) {
             $obj = new Task();
             $obj->set_t_id($row["t_id"]); // t <- q
-            $obj->set_g_id($row["g_id"]); // t <- q
+            $obj->set_p_id($row["p_id"]); // t <- q
             $obj->set_t_priority($row["t_priority"]); // t <- q
             $obj->set_t_date($row["t_date"]); // t <- q
             $obj->set_t_subject($row["t_subject"]); // t <- q
             $obj->set_t_comments($row["t_comments"]); // t <- q
             array_push($res, $obj);
         };
-        $this->ds->queryRowList($sql, array($g_id), $_map_cb);
+        $this->ds->queryRowList($sql, array($p_id), $_map_cb);
         return $res;
     }
 }

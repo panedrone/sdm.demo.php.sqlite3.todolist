@@ -2,9 +2,9 @@
 <dto-classes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:noNamespaceSchemaLocation="dto.xsd">
 
-    <dto-class name="Group" ref="groups"/>
+    <dto-class name="Project" ref="projects"/>
 
-    <dto-class name="GroupEx" ref="get_groups.sql">
+    <dto-class name="ProjectEx" ref="get_projects.sql">
         <field column="g_id" type="int"/>
         <field column="g_name" type="string"/>
         <field column="g_tasks_count" type="int"/>

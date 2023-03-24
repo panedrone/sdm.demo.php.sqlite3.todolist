@@ -12,7 +12,7 @@ class Task
     /**
      * @var int
      */
-    private $g_id;
+    private $p_id;
     /**
      * @var int
      */
@@ -40,14 +40,14 @@ class Task
         $this->t_id = $value;
     }
 
-    public function get_g_id(): int
+    public function get_p_id(): int
     {
-        return $this->g_id;
+        return $this->p_id;
     }
 
-    public function set_g_id(int $value)
+    public function set_p_id(int $value)
     {
-        $this->g_id = $value;
+        $this->p_id = $value;
     }
 
     public function get_t_priority(): int

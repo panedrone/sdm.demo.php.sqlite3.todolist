@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dao-class xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:noNamespaceSchemaLocation="dao.xsd">
+
+    <crud table="projects" dto="Project"/>
+
+    <query-dto-list dto="ProjectEx" method="get_projects"/>
+
+    <exec-dml method="delete_tasks(p_id)" ref="delete_project_tasks.sql"/>
+
+</dao-class>
