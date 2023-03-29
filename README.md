@@ -19,13 +19,13 @@ dto.xml
 ```
 ProjectsDao.xml
 ```xml
-<crud table="projects" dto="Project"/>
+<crud dto="Project"/>
 
 <query-dto-list dto="ProjectEx" method="get_projects"/>
 ```
 TasksDao.xml
 ```xml
-<crud table="tasks" dto="Task"/>
+<crud dto="Task"/>
 
 <query-dto-list ref="get_project_tasks.sql" dto="Task" method="get_project_tasks(p_id)"/>
 ```

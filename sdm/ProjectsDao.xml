@@ -2,7 +2,7 @@
 <dao-class xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:noNamespaceSchemaLocation="dao.xsd">
 
-    <crud table="projects" dto="Project"/>
+    <crud dto="Project"/>
 
     <query-dto-list dto="ProjectEx" method="get_projects"/>
 
