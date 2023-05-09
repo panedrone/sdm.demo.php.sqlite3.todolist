@@ -2,7 +2,7 @@
 
 // https://github.com/symfony/http-foundation/blob/5.4/Response.php
 
-class Response
+class StatusCode
 {
     const HTTP_CREATED = 201;
     const HTTP_NO_CONTENT = 204;

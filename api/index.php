@@ -23,12 +23,12 @@ Route::add('/api/tasks/([0-9]*)', function ($t_id) {
 
 Route::methodNotAllowed(function ($path, $method) {
     header("HTTP/1.1 405 Not Allowed $path $method");
-    http_response_code(Response::HTTP_METHOD_NOT_ALLOWED);
+    http_response_code(StatusCode::HTTP_METHOD_NOT_ALLOWED);
 });
 
 Route::pathNotFound(function ($path) {
     header("HTTP/1.1 404 Not Found $path");
-    http_response_code(Response::HTTP_NOT_FOUND);
+    http_response_code(StatusCode::HTTP_NOT_FOUND);
 });
 
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
