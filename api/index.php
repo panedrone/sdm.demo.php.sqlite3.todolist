@@ -31,12 +31,4 @@ Route::pathNotFound(function ($path) {
     http_response_code(StatusCode::HTTP_NOT_FOUND);
 });
 
-$uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-$uri_parts = explode('/api/', $uri);
-if (count($uri_parts) > 1) {
-    $base = $uri_parts[0];
-} else {
-    $base = "/";
-}
-
-Route::run($base);
+Route::run();
