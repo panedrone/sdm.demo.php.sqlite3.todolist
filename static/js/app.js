@@ -37,7 +37,7 @@ new Vue({
                 })
         },
         renderGroups() {
-            fetch("api/projects")
+            fetch("/api/projects")
                 .then(async (resp) => {
                     if (resp.status === 200) {
                         this.$data.projects = await resp.json()
@@ -57,7 +57,7 @@ new Vue({
             hideTaskDetails();
         },
         renderCurrentGroup(p_id) {
-            fetch("api/projects/" + p_id)
+            fetch("/api/projects/" + p_id)
                 .then(async (resp) => {
                     if (resp.status === 200) {
                         this.$data.current_project = await resp.json()
@@ -71,7 +71,7 @@ new Vue({
                 })
         },
         renderGroupTasks(p_id) {
-            fetch("api/projects/" + p_id + "/tasks")
+            fetch("/api/projects/" + p_id + "/tasks")
                 .then(async (resp) => {
                     if (resp.status === 200) {
                         this.$data.tasks = await resp.json()
@@ -85,7 +85,7 @@ new Vue({
                 })
         },
         renderTaskDetails(t_id) {
-            fetch("api/tasks/" + t_id)
+            fetch("/api/tasks/" + t_id)
                 .then(async (resp) => {
                     if (resp.status === 200) {
                         let task = await resp.json()
@@ -104,7 +104,7 @@ new Vue({
         },
         projectCreate() {
             let json = JSON.stringify({"p_name": this.$data.p_name})
-            fetch("api/projects", {
+            fetch("/api/projects", {
                 method: 'post',
                 headers: JSON_HEADERS,
                 body: json
@@ -124,7 +124,7 @@ new Vue({
         projectUpdate() {
             let p_id = this.$data.current_project.p_id
             let json = JSON.stringify(this.$data.current_project)
-            fetch("api/projects/" + p_id, {
+            fetch("/api/projects/" + p_id, {
                 method: 'put',
                 headers: JSON_HEADERS,
                 body: json
@@ -143,7 +143,7 @@ new Vue({
         },
         projectDelete() {
             let p_id = this.$data.current_project.p_id
-            fetch("api/projects/" + p_id, {
+            fetch("/api/projects/" + p_id, {
                 method: 'delete'
             })
                 .then(async (resp) => {
@@ -163,7 +163,7 @@ new Vue({
         taskCreate() {
             let p_id = this.$data.current_project.p_id
             let json = JSON.stringify({"t_subject": this.$data.t_subject})
-            fetch("api/projects/" + p_id + "/tasks", {
+            fetch("/api/projects/" + p_id + "/tasks", {
                 method: 'post',
                 headers: JSON_HEADERS,
                 body: json
@@ -188,7 +188,7 @@ new Vue({
             let json = JSON.stringify(this.$data.current_task)
             let p_id = this.$data.current_project.p_id
             let t_id = this.$data.current_task.t_id
-            fetch("api/tasks/" + t_id, {
+            fetch("/api/tasks/" + t_id, {
                 method: 'put',
                 headers: JSON_HEADERS,
                 body: json
@@ -209,7 +209,7 @@ new Vue({
         taskDelete() {
             let p_id = this.$data.current_project.p_id
             let t_id = this.$data.current_task.t_id
-            fetch("api/tasks/" + t_id, {
+            fetch("/api/tasks/" + t_id, {
                 method: "delete"
             })
                 .then(async (resp) => {
