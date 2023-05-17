@@ -19,3 +19,8 @@ function json_resp($data)
     header("Content-Type: application/json; charset=UTF-8");
     echo json_encode($data);
 }
+
+function get_request_method()
+{
+    return filter_input(INPUT_SERVER, 'REQUEST_METHOD', FILTER_SANITIZE_SPECIAL_CHARS);
+}

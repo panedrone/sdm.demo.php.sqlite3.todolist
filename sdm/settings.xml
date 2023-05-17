@@ -2,7 +2,7 @@
 <settings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:noNamespaceSchemaLocation="settings.xsd">
 
-    <folders target="dal" sql="sdm/sql"/>
+    <folders target="api/svc/dal" sql="sdm/sql"/>
 
     <dto scope="" inheritance="" field-names-mode="2" macro="${php-dto}"/>
 

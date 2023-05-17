@@ -1,18 +1,16 @@
 <?php
 
-require_once '../controllers/ProjectsController.php';
-require_once '../controllers/ProjectTasksController.php';
-require_once '../controllers/TaskController.php';
+require_once './svc/SvcProjects.php';
+require_once './svc/SvcProjectTasks.php';
+require_once './svc/SvcTasks.php';
 
 require_once './utils.php';
 require_once './validators.php';
 
-$method = filter_input(INPUT_SERVER, 'REQUEST_METHOD', FILTER_SANITIZE_SPECIAL_CHARS);
-
 function handle_projects()
 {
     try {
-        global $method;
+        $method = get_request_method();
         if ($method == "POST") {
             $data = json_decode(file_get_contents("php://input"));
             if (json_last_error() != JSON_ERROR_NONE) {
@@ -25,10 +23,10 @@ function handle_projects()
                 http_response_code(StatusCode::HTTP_BAD_REQUEST);
                 return;
             }
-            ProjectsController::createProject($data);
+            project_create($data);
             http_response_code(StatusCode::HTTP_CREATED);
         } else if ($method == "GET") {
-            $arr = ProjectsController::readProjects();
+            $arr = projects_read_all();
             json_resp($arr);
         }
     } catch (Exception $e) {
@@ -39,9 +37,9 @@ function handle_projects()
 function handle_project($p_id)
 {
     try {
-        global $method;
+        $method = get_request_method();
         if ($method == "GET") {
-            $item = ProjectsController::readProject($p_id);
+            $item = project_read($p_id);
             json_resp($item);
         } else if ($method == "PUT") {
             $data = json_decode(file_get_contents("php://input"));
@@ -55,9 +53,9 @@ function handle_project($p_id)
                 http_response_code(StatusCode::HTTP_BAD_REQUEST);
                 return;
             }
-            ProjectsController::updateProject($p_id, $data);
+            project_update($p_id, $data);
         } else if ($method == "DELETE") {
-            ProjectsController::deleteProject($p_id);
+            project_delete($p_id);
             http_response_code(StatusCode::HTTP_NO_CONTENT);
         }
     } catch (Exception $e) {
@@ -68,7 +66,7 @@ function handle_project($p_id)
 function handle_project_tasks($p_id)
 {
     try {
-        global $method;
+        $method = get_request_method();
         if ($method == "POST") {
             $data = json_decode(file_get_contents("php://input"));
             if (json_last_error() != JSON_ERROR_NONE) {
@@ -81,10 +79,10 @@ function handle_project_tasks($p_id)
                 http_response_code(StatusCode::HTTP_BAD_REQUEST);
                 return;
             }
-            ProjectTasksController::createTask($p_id, $data);
+            project_task_create($p_id, $data);
             http_response_code(StatusCode::HTTP_CREATED);
         } else if ($method == "GET") {
-            $arr = ProjectTasksController::readProjectTasks($p_id);
+            $arr = project_tasks_read_all($p_id);
             json_resp($arr);
         }
     } catch (Exception $e) {
@@ -95,9 +93,9 @@ function handle_project_tasks($p_id)
 function handle_task($t_id)
 {
     try {
-        global $method;
+        $method = get_request_method();
         if ($method == "GET") {
-            $item = TaskController::readTask($t_id);
+            $item = task_read($t_id);
             json_resp($item);
         } else if ($method == "PUT") {
             $data = json_decode(file_get_contents("php://input"));
@@ -111,9 +109,9 @@ function handle_task($t_id)
                 http_response_code(StatusCode::HTTP_BAD_REQUEST);
                 return;
             }
-            TaskController::updateTask($t_id, $data);
+            task_update($t_id, $data);
         } else if ($method == "DELETE") {
-            TaskController::deleteTask($t_id);
+            task_delete($t_id);
             http_response_code(StatusCode::HTTP_NO_CONTENT);
         }
     } catch (Exception $e) {

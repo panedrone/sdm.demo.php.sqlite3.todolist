@@ -1,43 +1,9 @@
-# sdm_demo_php_todolist
-Quick Demo of how to use [SQL DAL Maker](https://github.com/panedrone/sqldalmaker) + PHP/PDO.
-
-Front-end is written in Vue.js, SQLite3 is used as a database.
-
-![demo-go.png](demo-go.png)
-
-dto.xml
-```xml
-<dto-class name="Project" ref="projects"/>
-
-<dto-class name="ProjectEx" ref="get_projects.sql">
-    <field column="p_id" type="int"/>
-    <field column="p_name" type="string"/>
-    <field column="p_tasks_count" type="int"/>
-</dto-class>
-
-<dto-class name="Task" ref="tasks"/>
-```
-ProjectsDao.xml
-```xml
-<crud dto="Project"/>
-
-<query-dto-list dto="ProjectEx" method="get_projects"/>
-```
-TasksDao.xml
-```xml
-<crud dto="Task"/>
-
-<query-dto-list ref="get_project_tasks.sql" dto="Task" method="get_project_tasks(p_id)"/>
-```
-Generated code in action:
-
-```php
 <?php
 
-require_once "./bootstrap.php";
+require_once "bootstrap.php";
 
-require_once './dal/ProjectsDao.php';
-require_once './dal/Project.php';
+require_once 'dal/ProjectsDao.php';
+require_once 'dal/Project.php';
 
 /**
  * @throws Exception
@@ -106,4 +72,3 @@ function project_delete($p_id)
     $dao = new ProjectsDao(ds());
     $dao->delete_project($p_id);
 }
-```

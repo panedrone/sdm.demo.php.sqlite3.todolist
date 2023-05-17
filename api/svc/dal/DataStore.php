@@ -13,16 +13,19 @@
  */
 
 // class PDODataStore implements DataStore 
-class DataStore { // no inheritance is also OK
+class DataStore
+{ // no inheritance is also OK
 
     private $db;
 
-    function __destruct() {
+    function __destruct()
+    {
         // close connections when the object is destroyed
         $this->db = null;
     }
 
-    public function open() {
+    public function open()
+    {
         if (!is_null($this->db)) {
             throw new Exception("Already open");
         }
@@ -34,19 +37,23 @@ class DataStore { // no inheritance is also OK
         $this->db->setAttribute(PDO::ATTR_PERSISTENT, true);
     }
 
-    public function beginTransaction() {
+    public function beginTransaction()
+    {
         $this->db->beginTransaction();
     }
 
-    public function commit() {
+    public function commit()
+    {
         $this->db->commit();
     }
 
-    public function rollback() {
+    public function rollback()
+    {
         $this->db->rollback();
     }
 
-    public function close() {
+    public function close()
+    {
         // ------------ do nothing because of PDO::ATTR_PERSISTENT, true
 //        if (is_null($this->db)) {
 //            throw new Exception("Already closed");
@@ -55,7 +62,8 @@ class DataStore { // no inheritance is also OK
 //        $this->db = null;
     }
 
-    public function insert($sql, array $params, array &$ai_values) {
+    public function insert($sql, array $params, array &$ai_values)
+    {
         $stmt = $this->db->prepare($sql);
         try {
             // http://stackoverflow.com/questions/10699543/pdo-prepared-statement-in-php-using-associative-arrays-yields-wrong-results
@@ -77,7 +85,8 @@ class DataStore { // no inheritance is also OK
         }
     }
 
-    public function execDML($sql, array $params) {
+    public function execDML($sql, array $params)
+    {
         $stmt = $this->db->prepare($sql);
         try {
             $res = $stmt->execute($params);
@@ -87,7 +96,8 @@ class DataStore { // no inheritance is also OK
         }
     }
 
-    public function query($sql, array $params) {
+    public function query($sql, array $params)
+    {
         $stmt = $this->db->prepare($sql);
         try {
             $stmt->execute($params);
@@ -98,7 +108,8 @@ class DataStore { // no inheritance is also OK
         }
     }
 
-    public function queryList($sql, array $params) {
+    public function queryList($sql, array $params)
+    {
         $stmt = $this->db->prepare($sql);
         try {
             $stmt->execute($params);
@@ -112,7 +123,8 @@ class DataStore { // no inheritance is also OK
         }
     }
 
-    public function queryRow($sql, array $params) {
+    public function queryRow($sql, array $params)
+    {
         $stmt = $this->db->prepare($sql);
         try {
             $stmt->execute($params);
@@ -123,7 +135,8 @@ class DataStore { // no inheritance is also OK
         }
     }
 
-    public function queryRowList($sql, array $params, $callback) {
+    public function queryRowList($sql, array $params, $callback)
+    {
         $stmt = $this->db->prepare($sql);
         try {
             $res = $stmt->execute($params);

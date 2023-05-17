@@ -1,5 +1,4 @@
 <?php
-// bootstrap.php
 
 require_once('dal/DataStore.php');
 
