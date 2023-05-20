@@ -5,7 +5,7 @@
 
 
 include_once __DIR__ . '/Project.php';
-include_once __DIR__ . '/ProjectEx.php';
+include_once __DIR__ . '/ProjectLi.php';
 
 class ProjectsDao
 {
@@ -96,7 +96,7 @@ class ProjectsDao
     }
 
     /**
-     * @return ProjectEx[]
+     * @return ProjectLi[]
      * @throws \Exception
      */
     public function get_projects()
@@ -107,7 +107,7 @@ class ProjectsDao
             . "\n order by p.p_id";
         $res = array();
         $_map_cb = function ($row) use (&$res) {
-            $obj = new ProjectEx();
+            $obj = new ProjectLi();
             $obj->set_p_id($row["p_id"]); // q <- q
             $obj->set_p_name($row["p_name"]); // q <- q
             $obj->set_p_tasks_count($row["p_tasks_count"]); // q <- q

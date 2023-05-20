@@ -5,6 +5,7 @@
 
 
 include_once __DIR__ . '/Task.php';
+include_once __DIR__ . '/TaskLi.php';
 
 class TasksDao
 {
@@ -81,22 +82,21 @@ class TasksDao
 
     /**
      * @param string $p_id
-     * @return Task[]
+     * @return TaskLi[]
      * @throws \Exception
      */
     public function get_project_tasks($p_id)
     {
-        $sql = "select * from tasks where p_id =?"
+        $sql = "select t_id, t_priority, t_date, t_subject"
+            . "\n from tasks where p_id =?"
             . "\n order by t_id";
         $res = array();
         $_map_cb = function ($row) use (&$res) {
-            $obj = new Task();
-            $obj->set_t_id($row["t_id"]); // t <- q
-            $obj->set_p_id($row["p_id"]); // t <- q
-            $obj->set_t_priority($row["t_priority"]); // t <- q
-            $obj->set_t_date($row["t_date"]); // t <- q
-            $obj->set_t_subject($row["t_subject"]); // t <- q
-            $obj->set_t_comments($row["t_comments"]); // t <- q
+            $obj = new TaskLi();
+            $obj->set_t_id($row["t_id"]); // q <- q
+            $obj->set_t_priority($row["t_priority"]); // q <- q
+            $obj->set_t_date($row["t_date"]); // q <- q
+            $obj->set_t_subject($row["t_subject"]); // q <- q
             array_push($res, $obj);
         };
         $this->ds->queryRowList($sql, array($p_id), $_map_cb);
