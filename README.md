@@ -68,9 +68,6 @@ require_once "./bootstrap.php";
 require_once './dal/ProjectsDao.php';
 require_once './dal/Project.php';
 
-/**
- * @throws Exception
- */
 function project_create($data)
 {
     $dao = new ProjectsDao(ds());
@@ -79,9 +76,6 @@ function project_create($data)
     $dao->create_project($gr);
 }
 
-/**
- * @throws Exception
- */
 function projects_read_all(): array
 {
     $dao = new ProjectsDao(ds());
@@ -98,9 +92,6 @@ function projects_read_all(): array
     return $arr;
 }
 
-/**
- * @throws Exception
- */
 function project_read($p_id): array
 {
     $dao = new ProjectsDao(ds());
@@ -111,9 +102,6 @@ function project_read($p_id): array
     );
 }
 
-/**
- * @throws Exception
- */
 function project_update($p_id, $data)
 {
     $dao = new ProjectsDao(ds());
@@ -123,9 +111,6 @@ function project_update($p_id, $data)
     $dao->update_project($gr);
 }
 
-/**
- * @throws Exception
- */
 function project_delete($p_id)
 {
     $dao = new ProjectsDao(ds());
