@@ -1,4 +1,5 @@
 # sdm_demo_php_todolist
+
 Quick Demo of how to use [SQL DAL Maker](https://github.com/panedrone/sqldalmaker) + PHP/PDO.
 
 Front-end is written in Vue.js, SQLite3 is used as a database.
@@ -6,29 +7,50 @@ Front-end is written in Vue.js, SQLite3 is used as a database.
 ![demo-go.png](demo-go.png)
 
 dto.xml
+
 ```xml
-<dto-class name="Project" ref="projects"/>
 
-<dto-class name="ProjectEx" ref="get_projects.sql">
-    <field column="p_id" type="int"/>
-    <field column="p_name" type="string"/>
-    <field column="p_tasks_count" type="int"/>
-</dto-class>
+<dto-classes>
 
-<dto-class name="Task" ref="tasks"/>
+    <dto-class name="Project" ref="projects"/>
+
+    <dto-class name="ProjectEx" ref="get_projects.sql">
+        <field column="p_id" type="int"/>
+        <field column="p_name" type="string"/>
+        <field column="p_tasks_count" type="int"/>
+    </dto-class>
+
+    <dto-class name="Task" ref="tasks"/>
+
+</dto-classes>
 ```
+
 ProjectsDao.xml
-```xml
-<crud dto="Project"/>
 
-<query-dto-list dto="ProjectEx" method="get_projects"/>
+```xml
+
+<dao-class>
+
+    <crud dto="Project"/>
+
+    <query-dto-list dto="ProjectEx" method="get_projects"/>
+
+</dao-class>
 ```
+
 TasksDao.xml
-```xml
-<crud dto="Task"/>
 
-<query-dto-list ref="get_project_tasks.sql" dto="Task" method="get_project_tasks(p_id)"/>
+```xml
+
+<dao-class>
+
+    <crud dto="Task"/>
+
+    <query-dto-list ref="get_project_tasks.sql" dto="Task" method="get_project_tasks(p_id)"/>
+
+</dao-class>
 ```
+
 Generated code in action:
 
 ```php
