@@ -64,16 +64,12 @@ require_once './dal/Project.php';
 /**
  * @throws Exception
  */
-function project_create($data): ?string
+function project_create($data)
 {
     $dao = new ProjectsDao(ds());
     $gr = new Project();
-    if (strlen(trim($data->p_name)) == 0) {
-        return "Project name not set";
-    }
     $gr->set_p_name($data->p_name);
     $dao->create_project($gr);
-    return null;
 }
 
 /**
