@@ -1,11 +1,15 @@
 <?php
 
+require_once './svc/bootstrap.php';
+
 require_once './svc/SvcProjects.php';
 require_once './svc/SvcProjectTasks.php';
 require_once './svc/SvcTasks.php';
 
 require_once './utils.php';
 require_once './validators.php';
+
+init_ds();
 
 function handle_projects()
 {

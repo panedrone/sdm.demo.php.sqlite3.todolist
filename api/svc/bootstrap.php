@@ -2,12 +2,24 @@
 
 require_once('dal/DataStore.php');
 
-function ds() {
-    static $dataStore = null;
-    if ($dataStore !== null) {
-        return $dataStore;
-    }
-    $dataStore = new DataStore();
-    $dataStore->open();
-    return $dataStore;
+class _DS
+{
+    /**
+     * @var DataStore
+     */
+    static $ds;
+}
+
+/**
+ * @throws Exception
+ */
+function ds()
+{
+    return _DS::$ds;
+}
+
+function init_ds()
+{
+    _DS::$ds = new DataStore();
+    _DS::$ds->open();
 }
