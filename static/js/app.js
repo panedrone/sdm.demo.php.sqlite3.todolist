@@ -216,7 +216,7 @@ new Vue({
             })
                 .then(async (resp) => {
                     if (resp.status === 204) {
-                        this.project_details = false;
+                        this.task_edit = true;
                         this.renderGroups(); // update tasks count
                         this.renderGroupDetails(p_id);
                     } else {
@@ -241,7 +241,7 @@ new Vue({
     updated() {
     },
     mounted() { // https://codepen.io/g2g/pen/mdyeoXB
-        //this.askWhoIAm();
+        this.askWhoIAm();
         this.renderGroups();
     },
 })
