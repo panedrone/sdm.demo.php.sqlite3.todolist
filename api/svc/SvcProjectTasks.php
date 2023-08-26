@@ -2,8 +2,6 @@
 
 require_once "bootstrap.php";
 
-require_once 'dal/ProjectsDao.php';
-require_once 'dal/TasksDao.php';
 require_once 'dal/Task.php';
 
 
@@ -12,7 +10,6 @@ require_once 'dal/Task.php';
  */
 function project_task_create($p_id, $data)
 {
-    $dao = new TasksDao(ds());
     $t = new Task();
     $t->set_p_id($p_id);
     $t_date = date("Y-m-d H:i:s");
@@ -20,7 +17,7 @@ function project_task_create($p_id, $data)
     $t->set_t_subject($data->t_subject);
     $t->set_t_priority(1);
     $t->set_t_comments("");
-    $dao->create_task($t);
+    tasks_dao()->create_task($t);
 }
 
 /**
@@ -28,8 +25,7 @@ function project_task_create($p_id, $data)
  */
 function project_tasks_read_all($p_id): array
 {
-    $dao = new TasksDao(ds());
-    $tasks = $dao->get_project_tasks($p_id);
+    $tasks = tasks_dao()->get_project_tasks($p_id);
     $arr = array();
     foreach ($tasks as $t) {
         $item = array(

@@ -4,7 +4,7 @@
 
     <crud dto="Project"/>
 
-    <query-dto-list dto="ProjectLi" method="get_projects"/>
+    <query-dto-list dto="ProjectLi" method="get_projects" ref="get_projects.sql"/>
 
     <exec-dml method="delete_tasks(p_id)" ref="delete_project_tasks.sql"/>
 
