@@ -23,8 +23,8 @@ class ProjectsDao
      * (C)RUD: projects
      * Generated/AI values are passed to $p param
      * @param Project $p
-     * @return true/false on success/failure
-     * @throws Exception
+     * @return bool
+     * @throws \Exception
      */
     public function create_project($p)
     {
@@ -40,7 +40,7 @@ class ProjectsDao
     /**
      * C(R)UD: projects
      * @return Project[]
-     * @throws Exception
+     * @throws \Exception
      */
     public function read_project_list()
     {
@@ -60,7 +60,7 @@ class ProjectsDao
      * C(R)UD: projects
      * @param int $p_id
      * @return Project|FALSE on failure
-     * @throws Exception
+     * @throws \Exception
      */
     public function read_project($p_id)
     {
@@ -78,7 +78,7 @@ class ProjectsDao
     /**
      * CR(U)D: projects
      * @param Project $p
-     * @throws Exception
+     * @throws \Exception
      */
     public function update_project($p)
     {
@@ -89,7 +89,7 @@ class ProjectsDao
     /**
      * CRU(D): projects
      * @param int $p_id
-     * @throws Exception
+     * @throws \Exception
      */
     public function delete_project($p_id)
     {
@@ -99,7 +99,7 @@ class ProjectsDao
 
     /**
      * @return ProjectLi[]
-     * @throws Exception
+     * @throws \Exception
      */
     public function get_projects()
     {
@@ -122,7 +122,7 @@ class ProjectsDao
     /**
      * @param string $p_id
      * @return int the affected rows count
-     * @throws Exception
+     * @throws \Exception
      */
     public function delete_tasks($p_id)
     {

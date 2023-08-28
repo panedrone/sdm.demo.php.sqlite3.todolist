@@ -23,8 +23,8 @@ class TasksDao
      * (C)RUD: tasks
      * Generated/AI values are passed to $p param
      * @param Task $p
-     * @return true/false on success/failure
-     * @throws Exception
+     * @return bool
+     * @throws \Exception
      */
     public function create_task($p)
     {
@@ -41,7 +41,7 @@ class TasksDao
      * C(R)UD: tasks
      * @param int $t_id
      * @return Task|FALSE on failure
-     * @throws Exception
+     * @throws \Exception
      */
     public function read_task($t_id)
     {
@@ -63,7 +63,7 @@ class TasksDao
     /**
      * CR(U)D: tasks
      * @param Task $p
-     * @throws Exception
+     * @throws \Exception
      */
     public function update_task($p)
     {
@@ -74,7 +74,7 @@ class TasksDao
     /**
      * CRU(D): tasks
      * @param int $t_id
-     * @throws Exception
+     * @throws \Exception
      */
     public function delete_task($t_id)
     {
@@ -85,7 +85,7 @@ class TasksDao
     /**
      * @param string $p_id
      * @return TaskLi[]
-     * @throws Exception
+     * @throws \Exception
      */
     public function get_project_tasks($p_id)
     {
