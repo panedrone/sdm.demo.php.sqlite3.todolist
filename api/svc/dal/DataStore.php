@@ -3,19 +3,25 @@
 // include_once 'DataStore.php'; // uncomment if you need inheritance
 
 /*
-  SQL DAL Maker Website: http://sqldalmaker.sourceforge.net
+  	This file is a part of SQL DAL Maker project: https://sqldalmaker.sourceforge.net
+  	It demonstrates how to implement an interface DataStore in PHP + PDO/SQLite3.
+  	More about DataStore: https://sqldalmaker.sourceforge.net/preconfiguring.html#ds
+  	Recent version: https://github.com/panedrone/sqldalmaker/blob/master/src/resources/DataStore_PDO_SQLite3.php
 
-  This is an example of how to implement DataStore in PHP + PDO + SQLite3.
-  Copy-paste this code to your project and change it for your needs.
+  	Copy-paste this code to your project and change it for your needs.
+  	Improvements are welcome: sqldalmaker@gmail.com
 
-  Improvements are welcome: sdm@gmail.com
+    Demo project: https://github.com/panedrone/sdm_demo_todolist_php_pdo
 
  */
 
-// class PDODataStore implements DataStore 
+// class PDODataStore implements DataStore
 class DataStore
 { // no inheritance is also OK
 
+    /**
+     * @var PDO
+     */
     private $db;
 
     function __destruct()
@@ -24,6 +30,9 @@ class DataStore
         $this->db = null;
     }
 
+    /**
+     * @throws Exception
+     */
     public function open()
     {
         if (!is_null($this->db)) {
@@ -150,5 +159,4 @@ class DataStore
             $stmt->closeCursor();
         }
     }
-
 }

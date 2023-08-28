@@ -23,22 +23,24 @@ class ProjectsDao
      * (C)RUD: projects
      * Generated/AI values are passed to $p param
      * @param Project $p
-     * @return void
-     * @throws \Exception
+     * @return true/false on success/failure
+     * @throws Exception
      */
     public function create_project($p)
     {
         $sql = "insert into projects (p_name) values (?)";
-        $ai_values = array("p_id" => null);
+        $ai_values = array("p_id" => 0);
         $res = $this->ds->insert($sql, array($p->get_p_name()), $ai_values);
-        $p->set_p_id($ai_values["p_id"]);
+        if ($res) {
+            $p->set_p_id($ai_values["p_id"]);
+        }
         return $res;
     }
 
     /**
      * C(R)UD: projects
      * @return Project[]
-     * @throws \Exception
+     * @throws Exception
      */
     public function read_project_list()
     {
@@ -58,7 +60,7 @@ class ProjectsDao
      * C(R)UD: projects
      * @param int $p_id
      * @return Project|FALSE on failure
-     * @throws \Exception
+     * @throws Exception
      */
     public function read_project($p_id)
     {
@@ -76,7 +78,7 @@ class ProjectsDao
     /**
      * CR(U)D: projects
      * @param Project $p
-     * @throws \Exception
+     * @throws Exception
      */
     public function update_project($p)
     {
@@ -87,7 +89,7 @@ class ProjectsDao
     /**
      * CRU(D): projects
      * @param int $p_id
-     * @throws \Exception
+     * @throws Exception
      */
     public function delete_project($p_id)
     {
@@ -97,7 +99,7 @@ class ProjectsDao
 
     /**
      * @return ProjectLi[]
-     * @throws \Exception
+     * @throws Exception
      */
     public function get_projects()
     {
@@ -108,9 +110,9 @@ class ProjectsDao
         $res = array();
         $_map_cb = function ($row) use (&$res) {
             $obj = new ProjectLi();
-            $obj->set_p_id($row["p_id"]); // q <- q
-            $obj->set_p_name($row["p_name"]); // q <- q
-            $obj->set_p_tasks_count($row["p_tasks_count"]); // q <- q
+            $obj->set_p_id($row["p_id"]); // t <- q
+            $obj->set_p_name($row["p_name"]); // t <- q
+            $obj->set_p_tasks_count($row["p_tasks_count"]); // xml(p_tasks_count) <- q
             array_push($res, $obj);
         };
         $this->ds->queryRowList($sql, array(), $_map_cb);
@@ -120,7 +122,7 @@ class ProjectsDao
     /**
      * @param string $p_id
      * @return int the affected rows count
-     * @throws \Exception
+     * @throws Exception
      */
     public function delete_tasks($p_id)
     {

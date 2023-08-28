@@ -23,15 +23,17 @@ class TasksDao
      * (C)RUD: tasks
      * Generated/AI values are passed to $p param
      * @param Task $p
-     * @return void
-     * @throws \Exception
+     * @return true/false on success/failure
+     * @throws Exception
      */
     public function create_task($p)
     {
         $sql = "insert into tasks (p_id, t_priority, t_date, t_subject, t_comments) values (?, ?, ?, ?, ?)";
-        $ai_values = array("t_id" => null);
+        $ai_values = array("t_id" => 0);
         $res = $this->ds->insert($sql, array($p->get_p_id(), $p->get_t_priority(), $p->get_t_date(), $p->get_t_subject(), $p->get_t_comments()), $ai_values);
-        $p->set_t_id($ai_values["t_id"]);
+        if ($res) {
+            $p->set_t_id($ai_values["t_id"]);
+        }
         return $res;
     }
 
@@ -39,7 +41,7 @@ class TasksDao
      * C(R)UD: tasks
      * @param int $t_id
      * @return Task|FALSE on failure
-     * @throws \Exception
+     * @throws Exception
      */
     public function read_task($t_id)
     {
@@ -61,7 +63,7 @@ class TasksDao
     /**
      * CR(U)D: tasks
      * @param Task $p
-     * @throws \Exception
+     * @throws Exception
      */
     public function update_task($p)
     {
@@ -72,7 +74,7 @@ class TasksDao
     /**
      * CRU(D): tasks
      * @param int $t_id
-     * @throws \Exception
+     * @throws Exception
      */
     public function delete_task($t_id)
     {
@@ -83,7 +85,7 @@ class TasksDao
     /**
      * @param string $p_id
      * @return TaskLi[]
-     * @throws \Exception
+     * @throws Exception
      */
     public function get_project_tasks($p_id)
     {
