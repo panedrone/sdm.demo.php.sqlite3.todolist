@@ -9,6 +9,6 @@
         <delete/>
     </crud>
 
-    <query-dto-list dto="TaskLi" method="get_project_tasks(p_id)"/>
+    <query-dto-list dto="TaskLi" method="get_project_tasks(p_id)" ref="get_project_tasks.sql"/>
 
 </dao-class>

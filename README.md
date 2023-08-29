@@ -14,19 +14,15 @@ dto.xml
 
     <dto-class name="Project" ref="projects"/>
 
-    <dto-class name="ProjectLi" ref="get_projects.sql">
-        <field column="p_id" type="int"/>
-        <field column="p_name" type="string"/>
+    <dto-class name="ProjectLi" ref="projects">
         <field column="p_tasks_count" type="int"/>
     </dto-class>
 
     <dto-class name="Task" ref="tasks"/>
 
-    <dto-class name="TaskLi" ref="get_project_tasks.sql">
-        <field column="t_id" type="int"/>
-        <field column="t_priority" type="int"/>
-        <field column="t_date" type="string"/>
-        <field column="t_subject" type="string"/>
+    <dto-class name="TaskLi" ref="tasks">
+        <field column="p_id" type="-"/>
+        <field column="t_comments" type="-"/>
     </dto-class>
     
 </dto-classes>
@@ -40,7 +36,7 @@ ProjectsDao.xml
 
     <crud dto="Project"/>
 
-    <query-dto-list dto="ProjectLi" method="get_projects"/>
+    <query-dto-list dto="ProjectLi" method="get_projects" ref="get_projects.sql"/>
 
 </dao-class>
 ```
@@ -53,7 +49,7 @@ TasksDao.xml
 
     <crud dto="Task"/>
 
-    <query-dto-list dto="TaskLi" method="get_project_tasks(p_id)"/>
+    <query-dto-list dto="TaskLi" method="get_project_tasks(p_id)" ref="get_project_tasks.sql"/>
     
 </dao-class>
 ```

@@ -95,10 +95,10 @@ class TasksDao
         $res = array();
         $_map_cb = function ($row) use (&$res) {
             $obj = new TaskLi();
-            $obj->set_t_id($row["t_id"]); // q <- q
-            $obj->set_t_priority($row["t_priority"]); // q <- q
-            $obj->set_t_date($row["t_date"]); // q <- q
-            $obj->set_t_subject($row["t_subject"]); // q <- q
+            $obj->set_t_id($row["t_id"]); // t <- q
+            $obj->set_t_priority($row["t_priority"]); // t <- q
+            $obj->set_t_date($row["t_date"]); // t <- q
+            $obj->set_t_subject($row["t_subject"]); // t <- q
             array_push($res, $obj);
         };
         $this->ds->queryRowList($sql, array($p_id), $_map_cb);

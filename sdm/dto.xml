@@ -10,11 +10,9 @@
 
     <dto-class name="Task" ref="tasks"/>
 
-    <dto-class name="TaskLi" ref="get_project_tasks.sql">
-        <field column="t_id" type="int"/>
-        <field column="t_priority" type="int"/>
-        <field column="t_date" type="string"/>
-        <field column="t_subject" type="string"/>
+    <dto-class name="TaskLi" ref="tasks">
+        <field column="p_id" type="-"/>
+        <field column="t_comments" type="-"/>
     </dto-class>
 
 </dto-classes>
