@@ -6,11 +6,11 @@ Front-end is written in Vue.js, SQLite3 is used as a database.
 
 ![demo-go.png](demo-go.png)
 
-dto.xml
+sdm.xml
 
 ```xml
 
-<dto-classes>
+<sdm>
 
     <dto-class name="Project" ref="projects"/>
 
@@ -24,34 +24,19 @@ dto.xml
         <field column="p_id" type="-"/>
         <field column="t_comments" type="-"/>
     </dto-class>
+
+    <dao-class name="ProjectsDao">
+        <crud dto="Project"/>
+        <query-dto-list dto="ProjectLi" method="get_projects" ref="get_projects.sql"/>
+        <exec-dml method="delete_tasks(p_id)" ref="delete_project_tasks.sql"/>
+    </dao-class>
+
+    <dao-class name="TasksDao">
+        <crud dto="Task"/>
+        <query-dto-list dto="TaskLi" method="get_project_tasks(p_id)" ref="get_project_tasks.sql"/>
+    </dao-class>
     
-</dto-classes>
-```
-
-ProjectsDao.xml
-
-```xml
-
-<dao-class>
-
-    <crud dto="Project"/>
-
-    <query-dto-list dto="ProjectLi" method="get_projects" ref="get_projects.sql"/>
-
-</dao-class>
-```
-
-TasksDao.xml
-
-```xml
-
-<dao-class>
-
-    <crud dto="Task"/>
-
-    <query-dto-list dto="TaskLi" method="get_project_tasks(p_id)" ref="get_project_tasks.sql"/>
-    
-</dao-class>
+</sdm>
 ```
 
 Generated code in action:

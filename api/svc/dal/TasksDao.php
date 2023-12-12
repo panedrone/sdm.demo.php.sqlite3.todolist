@@ -39,6 +39,29 @@ class TasksDao
 
     /**
      * C(R)UD: tasks
+     * @return Task[]
+     * @throws \Exception
+     */
+    public function read_task_list()
+    {
+        $sql = "select * from tasks";
+        $res = array();
+        $_map_cb = function ($row) use (&$res) {
+            $obj = new Task();
+            $obj->set_t_id($row["t_id"]); // t <- t
+            $obj->set_p_id($row["p_id"]); // t <- t
+            $obj->set_t_priority($row["t_priority"]); // t <- t
+            $obj->set_t_date($row["t_date"]); // t <- t
+            $obj->set_t_subject($row["t_subject"]); // t <- t
+            $obj->set_t_comments($row["t_comments"]); // t <- t
+            array_push($res, $obj);
+        };
+        $this->ds->queryRowList($sql, array(), $_map_cb);
+        return $res;
+    }
+
+    /**
+     * C(R)UD: tasks
      * @param int $t_id
      * @return Task|FALSE on failure
      * @throws \Exception
