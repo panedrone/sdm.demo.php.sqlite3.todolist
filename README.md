@@ -1,5 +1,3 @@
-# sdm_todolist_php_pdo
-
 A project demonstrating how to use [SQL DAL Maker](https://github.com/panedrone/sqldalmaker) + PHP/PDO.
 
 Front-end is written in React.js. RDBMS is SQLite3.
