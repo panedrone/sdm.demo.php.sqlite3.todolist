@@ -6,7 +6,7 @@ require_once 'handlers.php';
 use Steampixel\Route;
 
 Route::add('/api/whoiam', function () {
-    echo 'SDM, PHP + PDO, SQLite3, Vue.js';
+    echo 'SDM, PHP + PDO, SQLite3, React.js';
 }, ['get', 'post']);
 
 Route::add('/api/projects', function () {

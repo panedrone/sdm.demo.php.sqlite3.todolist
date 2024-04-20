@@ -2,7 +2,7 @@
 
 A project demonstrating how to use [SQL DAL Maker](https://github.com/panedrone/sqldalmaker) + PHP/PDO.
 
-Front-end is written in Vue.js 2.7. RDBMS is SQLite3.
+Front-end is written in React.js. RDBMS is SQLite3.
 
 ![demo-go.png](demo-go.png)
 
