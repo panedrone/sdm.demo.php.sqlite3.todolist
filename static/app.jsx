@@ -452,6 +452,9 @@ async function responseToArray(resp) {
     }
     if (contentType.includes("application/json")) {
         let json = await resp.json()
+        if (!json) {
+            return []
+        }
         if (Array.isArray(json)) {
             // console.log(contentType)
             // console.log(json)
@@ -460,7 +463,7 @@ async function responseToArray(resp) {
         let msg = resp.status.toString() + " ==> (not an Array) ==> "
         console.log(msg)
         console.log(j)
-        showServerError(msg + JSON.stringify(j))
+        showServerError(msg + JSON.stringify(json))
         return []
     }
     let text = await resp.text()
@@ -693,7 +696,7 @@ render(areaComments, 't_comments')
 
 render(<TaskButtons/>, 'taskActions')
 
-// Render "Loader" at the very end: it ensures existence of all dependencies.
+// Render "Loader" at the very end: it ensures existence of all dependencies:
 
 const Loader = () => {
 
